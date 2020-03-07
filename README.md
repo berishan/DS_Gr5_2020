@@ -10,7 +10,7 @@ This project contains simple encryption tecniques.
 
 
 ## Technologies
-Project is created with:
+ This project is created with:
 * Java JDK 13
 
 
