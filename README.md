@@ -1,11 +1,11 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Content](#content)
+* [Instructions](#instructions)
 
 
 ## General info
-This project cotains simple encryption tecniques.
+This project contains simple encryption tecniques.
 
 
 
