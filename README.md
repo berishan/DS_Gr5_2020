@@ -16,8 +16,8 @@ Project is created with:
 
 ## Instructions
 ##### Beale Cipher
-* use  ds beale encrypt <book> <plaintext>  or   ds beale decrypt <book> <ciphertext>   
+* use  ds beale encrypt < book > <plaintext>  or   ds beale decrypt \<book> <ciphertext>   
 ##### Caesar Cipher
-* use  ds caesar encrypt <key> <plaintext>  or ds caesar decrypt <key> <ciphertext>
+* use  ds caesar encrypt < key >  <plaintext>  or ds caesar decrypt <key> <ciphertext>
 ##### Playfair Cipher
-* use  ds playfair encrypt <key> <plaintext> or ds playfair decrypt <key> <ciphertext> 
+* use  ds playfair encrypt < key > <plaintext> or ds playfair decrypt <key> <ciphertext> 
