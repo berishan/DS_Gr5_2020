@@ -28,6 +28,9 @@ public class Ciphers {
     // main program
 
     public static void main(String[] args) {
+
+
+
         if (args[1].equalsIgnoreCase("playfair")) {
             Ciphers pf = new Ciphers();
             pf.startPF(args[3], args[4], args[2]);
@@ -53,6 +56,7 @@ public class Ciphers {
 
         //   encodes or decodes the message
         if (function.equalsIgnoreCase("encrypt")) {
+
             printResultsE(format(cipher(input), notLetters));
 
 
@@ -216,9 +220,15 @@ public class Ciphers {
     private String format(String a, HashMap<Integer, Character> B) {
 
         StringBuilder sb = new StringBuilder(a);
-        for (int i : B.keySet()) {
-            sb.insert(Integer.parseInt(String.valueOf(i)), B.get(i));
-        }
+
+            for (int i : B.keySet()) {
+                try {
+                    sb.insert(Integer.parseInt(String.valueOf(i)), B.get(i));
+                } catch (StringIndexOutOfBoundsException e) {
+                    sb.append(B.get(i));
+
+                }
+            }
         return sb.toString();
     }
 
@@ -250,6 +260,14 @@ public class Ciphers {
     }
 
 }
+
+
+
+
+
+
+
+
 
 
 
