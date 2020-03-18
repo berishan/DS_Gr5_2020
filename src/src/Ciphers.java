@@ -1,20 +1,41 @@
-/*******************************************************************************************************************
- * References
- *    For Playfair Cipher
- **        Title: Playfair source code
- * *       Author: Sean McKenna
- * *       Date: Oct 10, 2016
- * *       Availability: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
- *
- *
- ***************************************************************************************************************/
-// encodes text input using the Playfair cipher
-// ues letter 'X' for insertion, I replaces J
+/******************************************************************************************************************
+ References
+ For Playfair Cipher
+ Title: Playfair source code
+ *       Author: Sean McKenna
+ *       Date: Oct 10, 2016
+ *       Availability: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
+
+
+ */
+
 
 import java.awt.*;
-import java.util.HashMap;
 
 public class Ciphers {
+    // main program
+
+    public static void main(String[] args) {
+
+
+        if (args[1].equalsIgnoreCase("playfair")) {
+            boolean shouldPrintTable = false;
+            try {
+                if (args[5].equalsIgnoreCase("--table")) {
+                    shouldPrintTable = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println();
+            }
+
+            Ciphers pf = new Ciphers();
+
+
+            pf.startPF(args[3], args[4], args[2], shouldPrintTable);
+        }
+    }
+
+
     // length of digraph array
     private int length = 0;
 
@@ -25,45 +46,26 @@ public class Ciphers {
     private String plaintext = "";
 
 
-    // main program
-
-    public static void main(String[] args) {
-
-
-
-        if (args[1].equalsIgnoreCase("playfair")) {
-            Ciphers pf = new Ciphers();
-            pf.startPF(args[3], args[4], args[2]);
-        }
-
-    }
-
     // main run of the program
-    private void startPF(String key, String text, String function) {
+    private void startPF(String key, String text, String function, Boolean shouldPrintTable) {
 
-        // prepare text for encoding/decoding
         String keyword = parseString(key);
-        table = this.cipherTable(keyword);
         String input = parseString(text);
 
-
-        // output the results to user
-        this.printTable(table);
-
-
-        HashMap<Integer, Character> notLetters = collect(text);
-
+        table = this.cipherTable(keyword);
+        if (shouldPrintTable) {
+            this.printTable(table);
+        }
 
         //   encodes or decodes the message
         if (function.equalsIgnoreCase("encrypt")) {
 
-            printResultsE(format(cipher(input), notLetters));
-
+            printResultsE(cipher(input));
 
         } else if (function.equalsIgnoreCase("decrypt")) {
-            printResultsD(format(decode(input), notLetters));
-        }
 
+            printResultsD(decode(input));
+        }
     }
 
 
@@ -75,7 +77,7 @@ public class Ciphers {
         return parse;
     }
 
-    // creates the cipher table based on some input string (already parsed)
+
     private String[][] cipherTable(String keyy) {
         String[][] playfairTable = new String[5][5];
         String keyString = keyy + "ABCDEFGHIKLMNOPQRSTUVWXYZ";
@@ -102,19 +104,18 @@ public class Ciphers {
         return playfairTable;
     }
 
-    // cipher: takes input (all upper-case), encodes it, and returns output
-    private String cipher(String in) {
-        length =  in.length() / 2 + in.length() % 2;
 
-        // insert x between double-letter digraphs & redefines "length"
+    private String cipher(String in) {
+        length = in.length() / 2 + in.length() % 2;
+
+
         for (int i = 0; i < (length - 1); i++) {
             if (in.charAt(2 * i) == in.charAt(2 * i + 1)) {
                 in = new StringBuffer(in).insert(2 * i + 1, 'X').toString();
-                length =  in.length() / 2 + in.length() % 2;
+                length = in.length() / 2 + in.length() % 2;
             }
         }
 
-        // adds an x to the last digraph, if necessary
         String[] digraph = new String[length];
         for (int j = 0; j < length; j++) {
             if (j == (length - 1) && in.length() / 2 == (length - 1))
@@ -122,7 +123,7 @@ public class Ciphers {
             digraph[j] = in.charAt(2 * j) + "" + in.charAt(2 * j + 1);
         }
 
-        // encodes the digraphs and returns the output
+
         String out = "";
         String[] encDigraphs = new String[length];
         encDigraphs = encodeDigraph(digraph);
@@ -131,7 +132,7 @@ public class Ciphers {
         return out;
     }
 
-    // encodes the digraph input with the cipher's specifications
+
     private String[] encodeDigraph(String di[]) {
         String[] enc = new String[length];
         for (int i = 0; i < length; i++) {
@@ -165,7 +166,7 @@ public class Ciphers {
         return enc;
     }
 
-    // decodes the output given from the cipher and decode methods (opp. of encoding process)
+
     private String decode(String out) {
         String decoded = "";
         for (int i = 0; i < out.length() / 2; i++) {
@@ -192,7 +193,7 @@ public class Ciphers {
         return decoded;
     }
 
-    // returns a point containing the row and column of the letter
+
     private Point getPoint(char c) {
         Point pt = new Point(0, 0);
         for (int i = 0; i < 5; i++)
@@ -202,38 +203,7 @@ public class Ciphers {
         return pt;
     }
 
-    //added HashMap for numbers and symbols
-    private HashMap<Integer, Character> collect(String text) {
 
-        HashMap<Integer, Character> notLetters = new HashMap<Integer, Character>();
-        for (int i = 0; i < text.length(); i++) {
-
-            if (!Character.isLetter(text.charAt(i))) {
-                notLetters.put(i, text.charAt(i));
-            }
-        }
-        return notLetters;
-    }
-
-
-    // StringBuilder to format the result
-    private String format(String a, HashMap<Integer, Character> B) {
-
-        StringBuilder sb = new StringBuilder(a);
-
-            for (int i : B.keySet()) {
-                try {
-                    sb.insert(Integer.parseInt(String.valueOf(i)), B.get(i));
-                } catch (StringIndexOutOfBoundsException e) {
-                    sb.append(B.get(i));
-
-                }
-            }
-        return sb.toString();
-    }
-
-
-    // prints the cipher table out for the user
     private void printTable(String[][] printedTable) {
         System.out.println("This is the cipher table from the given keyword.");
         System.out.println();
@@ -247,17 +217,23 @@ public class Ciphers {
         System.out.println();
     }
 
-    // prints results (encoded and decoded)
+
     private void printResultsE(String enc) {
+        String chunkedString = "";
+        for (int i = 0; i < enc.length(); i = i + 2) {
+            chunkedString = chunkedString + enc.charAt(i) + enc.charAt(i + 1) + " ";
+
+        }
         System.out.println("This is the encoded message:");
-        System.out.println(enc);
+        System.out.println(chunkedString.toLowerCase());
         System.out.println();
     }
 
     private void printResultsD(String dec) {
         System.out.println("This is the decoded message:");
-        System.out.println(dec);
+        System.out.println(dec.toLowerCase());
     }
+
 
 }
 
