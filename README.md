@@ -17,7 +17,7 @@ This project contains simple encryption tecniques.
 ## Instructions
 ##### Beale Cipher
 <pre> 
-* use   java ds beale encrypt < book > <plaintext>    or   java ds beale decrypt < book > < ciphertext >
+* use   java ds beale encrypt < book > < plaintext >    or   java ds beale decrypt < book > < ciphertext >
 *  With this method, each letter in the secret message is replaced with a number which represents the position of a word in the book which starts with this letter.   
 *Example:
        In this example we've used a file that contains the following text " the quick brown fox jumps over the lazy dog."
@@ -28,7 +28,7 @@ This project contains simple encryption tecniques.
 
                  
 ##### Caesar Cipher
-* use    java ds caesar encrypt < key >  <plaintext>   or    java ds caesar decrypt < key > < ciphertext >   or   java ds caesar bruteForce < plaintext >
+* use    java ds caesar encrypt < key >  < plaintext >   or    java ds caesar decrypt < key > < ciphertext >   or   java ds caesar bruteForce < plaintext >
 * Each letter is shifted along in the alphabet by the same number of letters.
 * Example:
         In this example, each letter in the plaintext message has been shifted 4 letters down in the alphabet.
@@ -40,7 +40,7 @@ This project contains simple encryption tecniques.
         
         
 ##### Playfair Cipher
-* use   java  ds playfair encrypt < key > <pre>  or    java  ds playfair decrypt < key > < ciphertext >       
+* use   java  ds playfair encrypt < key >  or    java  ds playfair decrypt < key > < ciphertext >       
 add --table if you want the table to be shown
 * The Playfair cipher uses a 5 by 5 table containing a key word or phrase. To generate the table, one would first fill in the spaces of the table with the letters of the keyword (dropping any duplicate letters), then fill the remaining spaces with the rest of the letters of the alphabet in order (to reduce the alphabet to fit you can either omit "Q" or replace "J" with "I")
   To encrypt a message, one would break the message into groups of 2 letters.
@@ -52,5 +52,4 @@ add --table if you want the table to be shown
         In this example we build the table with the keyword "topi". 
         Plaintext: pershendetje nga fiek
         Ciphertext:id su lc rb bi el vn fm el rp
-        
 </pre>        
