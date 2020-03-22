@@ -21,7 +21,7 @@ This project contains simple encryption tecniques.
 *  With this method, each letter in the secret message is replaced with a number which represents the position of a word in the book which starts with this letter.   
 *Example:
        In this example we've used a file that contains the following text " the quick brown fox jumps over the lazy dog."
-       Plaintext: pershendetje nga fiek.
+       Plaintext: pershendetje nga fiek
        Ciphertext: 24 3 12 25 2 3 15 41 3 1 21 3 4 15 43 37 4 17 7 3 9
 
 
