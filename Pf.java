@@ -5,36 +5,11 @@
  *       Author: Sean McKenna
  *       Date: Oct 10, 2016
  *       Availability: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
-
-
  */
 
-
-import java.awt.*;
-
-public class Ciphers {
+import java.awt.Point;
+public class Pf {
     // main program
-
-    public static void main(String[] args) {
-
-
-        if (args[1].equalsIgnoreCase("playfair")) {
-            boolean shouldPrintTable = false;
-            try {
-                if (args[5].equalsIgnoreCase("--table")) {
-                    shouldPrintTable = true;
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println();
-            }
-
-            Ciphers pf = new Ciphers();
-
-
-            pf.startPF(args[3], args[4], args[2], shouldPrintTable);
-        }
-    }
-
 
     // length of digraph array
     private int length = 0;
@@ -47,7 +22,7 @@ public class Ciphers {
 
 
     // main run of the program
-    private void startPF(String key, String text, String function, Boolean shouldPrintTable) {
+    public void startPF(String key, String text, String function, Boolean shouldPrintTable) {
 
         String keyword = parseString(key);
         String input = parseString(text);
@@ -65,6 +40,8 @@ public class Ciphers {
         } else if (function.equalsIgnoreCase("decrypt")) {
 
             printResultsD(decode(input));
+        } else {
+            System.out.println("udhezime:");
         }
     }
 
@@ -236,15 +213,5 @@ public class Ciphers {
 
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
