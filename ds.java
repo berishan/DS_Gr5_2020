@@ -1,6 +1,7 @@
 public class ds {
     public static void main (String[] args) {
 
+
         if (args.length <= 2) {
 
             System.out.println("udhezime:");
@@ -13,11 +14,34 @@ public class ds {
             }
 
             break;
+
+
             case "caesar": {
 
-                System.out.println("hehe");
+                if (args[1].equals("encrypt")){
+                    System.out.println(Caesar.encrypt(args[3], Integer.parseInt(args[2])));
+                }
+                else if (args[1].equals("decrypt")) {
+
+                    System.out.println(Caesar.decrypt(args[3], Integer.parseInt(args[2])));
+
+                }
+                else if (args[1].equals("bruteForce")) {
+
+                    System.out.print(Caesar.bruteForce(args[2]));
+                }
+                else {
+
+                    System.out.println("Ju keni shtypur komande te gabuar!");
+
+                    System.exit(1);
+
+                }
+
             }
             break;
+
+
 
             case "playfair": {
 
