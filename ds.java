@@ -32,7 +32,7 @@ public class ds {
                 }
                 else {
 
-                    System.out.println("Ju keni shtypur komande te gabuar!");
+                    System.out.println("Keni shtypur komanden e gabuar!");
 
                     System.exit(1);
 
