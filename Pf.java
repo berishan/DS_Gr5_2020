@@ -7,9 +7,9 @@
  *       Availability: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
  */
 
-import java.awt.Point;
+import java.awt.*;
 public class Pf {
-    // main program
+
 
     // length of digraph array
     private int length = 0;
