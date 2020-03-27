@@ -4,8 +4,8 @@ public class ds {
 
         if (args.length <= 2) {
 
-            System.out.println("Numri i argumenteve qe dhate eshte me i vogel sesa qe duhet." +
-                    "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin ");
+            System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
+                    "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
             System.exit(1);
         }
 
@@ -33,7 +33,8 @@ public class ds {
                 }
                 else {
 
-                    System.out.println("Keni shtypur komanden e gabuar!");
+                    System.out.println("Ju keni shtypur komanden e gabuar!"+
+                            "Komandat per caesar jane encrypt, decrypt ose bruteForce");
 
                     System.exit(1);
 
