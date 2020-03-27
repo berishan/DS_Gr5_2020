@@ -11,7 +11,8 @@ public class ds {
 
         switch (args[0]) {
             case "beale": {
-                System.out.println("hehe");
+                System.out.println("Ju keni shtypur nenkomanden e gabuar!"+
+                        "Nenkomandat per caesar jane encrypt ose decrypt ");
             }
 
             break;
@@ -33,8 +34,8 @@ public class ds {
                 }
                 else {
 
-                    System.out.println("Ju keni shtypur komanden e gabuar!"+
-                            "Komandat per caesar jane encrypt, decrypt ose bruteForce");
+                    System.out.println("Ju keni shtypur nenkomanden e gabuar!"+
+                            "Nenkomandat per caesar jane encrypt, decrypt ose bruteForce");
 
                     System.exit(1);
 
@@ -64,7 +65,8 @@ public class ds {
             }
             break;
             default: {
-                System.out.println("Ju keni shtypur komande te gabuar!");
+                System.out.println("Ju keni shtypur nenkomanden e gabuar!"+
+                        "Nenkomandat per playfair jane: encrypt, decrypt ose --table");
                 System.exit(1);
             }
         }
