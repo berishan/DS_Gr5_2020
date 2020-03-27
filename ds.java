@@ -4,7 +4,8 @@ public class ds {
 
         if (args.length <= 2) {
 
-            System.out.println("udhezime:");
+            System.out.println("Numri i argumenteve qe dhate eshte me i vogel sesa qe duhet." +
+                    "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin ");
             System.exit(1);
         }
 
@@ -40,6 +41,7 @@ public class ds {
 
             }
             break;
+
 
 
 
