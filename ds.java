@@ -10,62 +10,81 @@ public class ds {
 
         switch (args[0]) {
             case "beale": {
-                System.out.println("hehe");
-            }
-
-            break;
 
 
-            case "caesar": {
+                    if(args[1].contains("encrypt"))
+                    {
+                        try{
+                            System.out.println("Encode called from parametars with the book name " + args[2]);
+                            System.out.println(Beale.encode(args[2], args[3]));
+                        }catch(Exception e){
+                            System.out.println(e);
+                        }
 
-                if (args[1].equals("encrypt")){
-                    System.out.println(Caesar.encrypt(args[3], Integer.parseInt(args[2])));
-                }
-                else if (args[1].equals("decrypt")) {
-
-                    System.out.println(Caesar.decrypt(args[3], Integer.parseInt(args[2])));
-
-                }
-                else if (args[1].equals("bruteForce")) {
-
-                    System.out.print(Caesar.bruteForce(args[2]));
-                }
-                else {
-
-                    System.out.println("Keni shtypur komanden e gabuar!");
-
-                    System.exit(1);
-
-                }
-
-            }
-            break;
-
-
-
-            case "playfair": {
-
-                boolean shouldPrintTable = false;
-                try {
-                    if (args[4].equalsIgnoreCase("--table")) {
-                        shouldPrintTable = true;
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println();
+                    else if(args[0].contains("decrypt"))
+                    {
+                        try{
+                            System.out.println(Beale.decode(args[2], args[3]));
+                        }catch(Exception e){
+                            System.out.println(e);
+                        }
+                    }
                 }
 
-                Pf pf = new Pf();
-                pf.startPF(args[2], args[3], args[1], shouldPrintTable);
+                break;
 
 
+                case "caesar": {
+
+                    if (args[1].equals("encrypt")){
+                        System.out.println(Caesar.encrypt(args[3], Integer.parseInt(args[2])));
+                    }
+                    else if (args[1].equals("decrypt")) {
+
+                        System.out.println(Caesar.decrypt(args[3], Integer.parseInt(args[2])));
+
+                    }
+                    else if (args[1].equals("bruteForce")) {
+
+                        System.out.print(Caesar.bruteForce(args[2]));
+                    }
+                    else {
+
+                        System.out.println("Keni shtypur komanden e gabuar!");
+
+                        System.exit(1);
+
+                    }
+
+                }
+                break;
+
+
+
+                case "playfair": {
+
+                    boolean shouldPrintTable = false;
+                    try {
+                        if (args[4].equalsIgnoreCase("--table")) {
+                            shouldPrintTable = true;
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println();
+                    }
+
+                    Pf pf = new Pf();
+                    pf.startPF(args[2], args[3], args[1], shouldPrintTable);
+
+
+                }
+                break;
+                default: {
+                    System.out.println("Ju keni shtypur komande te gabuar!");
+                    System.exit(1);
+                }
             }
-            break;
-            default: {
-                System.out.println("Ju keni shtypur komande te gabuar!");
-                System.exit(1);
-            }
+
+
         }
-
-
     }
-}
