@@ -1,7 +1,3 @@
-import java.io.*;
-import java.util.LinkedList;
-import java.util.ArrayList;
-
 public class Beale {
     public static String decode(String file, String desc) throws IOException {
 
@@ -14,7 +10,7 @@ public class Beale {
             words = line.toCharArray();
             for (char w : words) {
                 list[index++] = w;
-              System.out.println(w + " " + index);
+                System.out.println(w + " " + index);
             }
             line = br.readLine();
         }
@@ -22,7 +18,7 @@ public class Beale {
         String decodedMessage = "";
         for (String number : numbers) {
             int n = Integer.parseInt(number);
-          System.out.println(n + " " + list[n]);
+            System.out.println(n + " " + list[n]);
             decodedMessage += list[n - 1];
         }
         return "Decoded message " + decodedMessage;

@@ -5,10 +5,9 @@ public class ds {
 
         if (args.length < 4) {
             if (args[0].equals("caesar") && args[1].equals("bruteForce") && !(args[2].equals(""))) {
-               Caesar.bruteForce(args[2]);
+                Caesar.bruteForce(args[2]);
 
-            }
-            else {
+            } else {
 
                 System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
                         "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
@@ -33,12 +32,11 @@ public class ds {
                     try {
                         System.out.println(Beale.decode(args[2], args[3]));
                     } catch (Exception e) {
-                      System.out.println("Ju lutem shkruani nje emer valid te file");
+                        System.out.println("Ju lutem shkruani nje emer valid te file");
                         System.exit(1);
                     }
-                }
-                else{
-                    System.out.println("Keni shtypur nenkomanden e gabuar!"+" Provoni encrypt ose decrypt");
+                } else {
+                    System.out.println("Keni shtypur nenkomanden e gabuar!" + " Provoni encrypt ose decrypt");
                     System.exit(1);
 
                 }
@@ -60,8 +58,7 @@ public class ds {
                     } else if (args[1].equals("bruteForce")) {
 
                         break;
-                    }
-                else {
+                    } else {
 
                         System.out.println("Ju keni shtypur nenkomanden e gabuar!" +
                                 "Nenkomandat per caesar jane encrypt, decrypt ose bruteForce");
@@ -69,8 +66,7 @@ public class ds {
                         System.exit(1);
 
                     }
-                }
-                catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     System.out.println("Celesi duhet te jete numer!");
                     System.exit(1);
 

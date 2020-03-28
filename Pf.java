@@ -7,7 +7,6 @@
  *       Availability: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
  */
 
-import java.awt.*;
 public class Pf {
 
 
@@ -42,6 +41,7 @@ public class Pf {
             printResultsD(decode(input));
         } else {
             System.out.println("Ju keni shtypur nenkomanden e gabuar! \n Ju duhet te shtypni encrypt ose decrypt");
+            System.exit(1);
         }
     }
 
