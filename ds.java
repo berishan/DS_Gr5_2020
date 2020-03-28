@@ -28,6 +28,9 @@ public class ds {
                         System.out.println(e);
                     }
                 }
+                else{
+                    System.out.println("Keni shtypur nenkomanden e gabuar!"+" Provoni encrypt ose decrypt");
+                }
             }
 
             break;
