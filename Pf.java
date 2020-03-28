@@ -41,7 +41,7 @@ public class Pf {
 
             printResultsD(decode(input));
         } else {
-            System.out.println("udhezime:");
+            System.out.println("Ju keni shtypur nenkomanden e gabuar! \n Ju duhet te shtypni encrypt ose decrypt");
         }
     }
 
