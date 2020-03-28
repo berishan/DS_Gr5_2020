@@ -34,22 +34,29 @@ public class ds {
 
 
             case "caesar": {
+                try {
 
-                if (args[1].equals("encrypt")) {
-                    System.out.println(Caesar.encrypt(args[3], Integer.parseInt(args[2])));
-                } else if (args[1].equals("decrypt")) {
+                    if (args[1].equals("encrypt")) {
 
-                    System.out.println(Caesar.decrypt(args[3], Integer.parseInt(args[2])));
+                        System.out.println(Caesar.encrypt(args[3], Integer.parseInt(args[2])));
+                    } else if (args[1].equals("decrypt")) {
 
-                } else if (args[1].equals("bruteForce")) {
+                        System.out.println(Caesar.decrypt(args[3], Integer.parseInt(args[2])));
 
-                    System.out.print(Caesar.bruteForce(args[2]));
-                } else {
+                    } else if (args[1].equals("bruteForce")) {
 
-                    System.out.println("Ju keni shtypur nenkomanden e gabuar!" +
-                            "Nenkomandat per caesar jane encrypt, decrypt ose bruteForce");
+                        System.out.print(Caesar.bruteForce(args[2]));
+                    } else {
 
-                    System.exit(1);
+                        System.out.println("Ju keni shtypur nenkomanden e gabuar!" +
+                                "Nenkomandat per caesar jane encrypt, decrypt ose bruteForce");
+
+                        System.exit(1);
+
+                    }
+                }
+                catch(NumberFormatException e){
+                    System.out.println("Celesi duhet te jete numer!");
 
                 }
 
