@@ -21,7 +21,7 @@ public class ds {
                         System.out.println(e);
                     }
 
-                } else if (args[0].contains("decrypt")) {
+                } else if (args[1].contains("decrypt")) {
                     try {
                         System.out.println(Beale.decode(args[2], args[3]));
                     } catch (Exception e) {
