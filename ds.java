@@ -82,8 +82,8 @@ public class ds {
             }
             break;
             default: {
-                System.out.println("Ju keni shtypur nenkomanden e gabuar!" +
-                        "Nenkomandat per playfair jane: encrypt, decrypt ose --table");
+                System.out.println("Ju keni shtypur komanden e gabuar!" +
+                        " Komandat qe duhet te perdoren jane: beale, caesar ose playfair");
                 System.exit(1);
             }
         }
