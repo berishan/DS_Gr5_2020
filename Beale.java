@@ -14,7 +14,7 @@ public class Beale {
             words = line.toCharArray();
             for (char w : words) {
                 list[index++] = w;
-                System.out.println(w + " " + index);
+              System.out.println(w + " " + index);
             }
             line = br.readLine();
         }
@@ -22,7 +22,7 @@ public class Beale {
         String decodedMessage = "";
         for (String number : numbers) {
             int n = Integer.parseInt(number);
-            System.out.println(n + " " + list[n]);
+          System.out.println(n + " " + list[n]);
             decodedMessage += list[n - 1];
         }
         return "Decoded message " + decodedMessage;
@@ -30,7 +30,7 @@ public class Beale {
 
 
     public static String encode(String file, String desc) throws IOException {
-        System.out.println("Encode called from encode");
+
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(System.getProperty("user.dir") + "\\" + file)));
         char[] list = new char[1000];
         String line = br.readLine();

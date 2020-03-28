@@ -51,13 +51,12 @@ public class Caesar {
 	}
 
 
-	public static String bruteForce(String text) {
+	public static void bruteForce(String text) {
 
 
 		for (int i = 1; i <= 26; i++) {
 			System.out.println("celesi nr" + i + " " + decrypt(text, i));
 		}
-		return text;
 	}
 }
 
