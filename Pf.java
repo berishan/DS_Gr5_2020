@@ -3,10 +3,9 @@
  For Playfair Cipher
  Title: Playfair source code
  *       Author: Sean McKenna
- *       Date: Oct 10, 2016
  *       Availability: https://github.com/mckennapsean/code-examples/blob/master/Java/Playfair.java
  */
-
+import java.awt.Point;
 public class Pf {
 
 
@@ -15,12 +14,8 @@ public class Pf {
 
     // table for Playfair cipher
     private String[][] table;
-    //  added for args
-    private String key = "";
-    private String plaintext = "";
 
 
-    // main run of the program
     public void startPF(String key, String text, String function, Boolean shouldPrintTable) {
 
         String keyword = parseString(key);
@@ -31,7 +26,6 @@ public class Pf {
             this.printTable(table);
         }
 
-        //   encodes or decodes the message
         if (function.equalsIgnoreCase("encrypt")) {
 
             printResultsE(cipher(input));
@@ -40,7 +34,7 @@ public class Pf {
 
             printResultsD(decode(input));
         } else {
-            System.out.println("Ju keni shtypur nenkomanden e gabuar! \n Ju duhet te shtypni encrypt ose decrypt");
+            System.out.println("Ju keni shtypur nenkomanden e gabuar!\n Ju duhet te shtypni encrypt ose decrypt");
             System.exit(1);
         }
     }

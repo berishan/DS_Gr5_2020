@@ -49,7 +49,6 @@ public class ds {
                 try {
 
                     if (args[1].equals("encrypt")) {
-
                         System.out.println(Caesar.encrypt(args[3], Integer.parseInt(args[2])));
                     } else if (args[1].equals("decrypt")) {
 
