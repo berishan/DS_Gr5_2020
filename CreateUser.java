@@ -7,6 +7,7 @@ public class CreateUser {
 
 
     public static void checkUser(String name) throws Exception {
+
         String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".xml";
 
         if (new File(publicfileName).exists()) {
