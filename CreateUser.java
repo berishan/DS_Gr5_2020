@@ -1,8 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.util.Base64;
-import javax.crypto.*;
-import java.security.*;
+
 public class CreateUser {
 
 
@@ -35,6 +37,7 @@ public class CreateUser {
 
 
     }
+
     public static void saveUser(String name, String privateKey, String publicKey) throws Exception {
 
         String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".xml";
@@ -45,7 +48,7 @@ public class CreateUser {
         writeFile.write(publicKey);
         writeFile.write("\n-----END RSA PUBLIC KEY-----\n");
         writeFile.close();
-        System.out.println("Eshte krijuar celesi privat: '"+ privatefileName + "'");
+        System.out.println("Eshte krijuar celesi privat: '" + privatefileName + "'");
 
         FileWriter writeAnotherFile = new FileWriter(privatefileName);
         writeAnotherFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
