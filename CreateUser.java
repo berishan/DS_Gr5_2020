@@ -1,8 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Base64;
-import java.security.*;
 import javax.crypto.*;
+import java.security.*;
 public class CreateUser {
 
 
@@ -45,12 +45,15 @@ public class CreateUser {
         writeFile.write(publicKey);
         writeFile.write("\n-----END RSA PUBLIC KEY-----\n");
         writeFile.close();
+        System.out.println("Eshte krijuar celesi privat: '"+ privatefileName + "'");
 
         FileWriter writeAnotherFile = new FileWriter(privatefileName);
         writeAnotherFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
         writeAnotherFile.write(privateKey);
         writeAnotherFile.write("\n-----END RSA PRIVATE KEY-----\n");
         writeAnotherFile.close();
+        System.out.println("Eshte krijuar celesi publik: '" + publicfileName + "'");
+
 
     }
 
