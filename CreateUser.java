@@ -4,11 +4,18 @@ import java.util.Base64;
 import java.security.*;
 import javax.crypto.*;
 public class CreateUser {
-    public static void main(String[] args) throws Exception{
 
+
+    public static void CheckUser(String name) throws Exception {
+        String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".xml";
+
+        if (new File(publicfileName).exists()) {
+            System.out.println("Useri ekziston!");
+        } else {
+            GenerateKeys(name);
+        }
 
     }
-
 
     public static void GenerateKeys(String name) throws Exception {
 
