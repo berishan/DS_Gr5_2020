@@ -13,7 +13,7 @@ public class CreateUser {
         String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".xml";
 
         if (new File(publicfileName).exists()) {
-            System.out.println("Useri ekziston!");
+            System.out.println("Celesi '" + name + "' ekziston paraprakisht.");
         } else {
             GenerateKeys(name);
         }
@@ -48,14 +48,14 @@ public class CreateUser {
         writeFile.write(publicKey);
         writeFile.write("\n-----END RSA PUBLIC KEY-----\n");
         writeFile.close();
-        System.out.println("Eshte krijuar celesi privat: '" + privatefileName + "'");
+        System.out.println("Eshte krijuar celesi privat:     '" + privatefileName + "'.");
 
         FileWriter writeAnotherFile = new FileWriter(privatefileName);
         writeAnotherFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
         writeAnotherFile.write(privateKey);
         writeAnotherFile.write("\n-----END RSA PRIVATE KEY-----\n");
         writeAnotherFile.close();
-        System.out.println("Eshte krijuar celesi publik: '" + publicfileName + "'");
+        System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
 
 
     }
