@@ -1,4 +1,5 @@
-import java.io.*;
+import java.io.File;
+
 public class ds {
 
     public static void main(String[] args) throws Exception {
@@ -9,23 +10,29 @@ public class ds {
                 Caesar.bruteForce(args[2]);
 
 
-            }
-            else if(args[0].equals("create-user")){
+            } else if (args[0].equals("create-user")) {
                 new File(System.getProperty("user.dir") + "/keys").mkdir();
                 try {
                     CreateUser.checkUser(args[1]);
-                } catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Ju lutem shkruani emrin tuaj!");
+                }
+            } else if (args[0].equals("delete-user")) {
+                new File(System.getProperty("user.dir") + "/keys").mkdir();
+                try {
+                    DeleteUser.deleteUser(args[1]);
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin tuaj!");
                 }
             }
-            else
-             {
 
-                System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
-                        "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
-                System.exit(1);
-            }
+        } else {
+
+            System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
+                    "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
+            System.exit(1);
         }
+
 
         switch (args[0]) {
             case "beale": {
@@ -104,11 +111,14 @@ public class ds {
 
             }
             break;
-            case "create-user":{
-                break;
+            case "create-user": {
+                System.out.println();
             }
-
-
+            break;
+            case "delete-user": {
+                System.out.println();
+            }
+            break;
 
             default: {
                 System.out.println("Ju keni shtypur komanden e gabuar!" +
@@ -120,3 +130,4 @@ public class ds {
 
     }
 }
+
