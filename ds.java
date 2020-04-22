@@ -1,13 +1,25 @@
+import java.io.*;
 public class ds {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
 
         if (args.length < 4) {
             if (args[0].equals("caesar") && args[1].equals("bruteForce") && !(args[2].equals(""))) {
                 Caesar.bruteForce(args[2]);
 
-            } else {
+
+            }
+            else if(args[0].equals("create-user")){
+                new File(System.getProperty("user.dir") + "/keys").mkdir();
+                try {
+                    CreateUser.checkUser(args[1]);
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("Ju lutem shkruani emrin tuaj!");
+                }
+            }
+            else
+             {
 
                 System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
                         "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
@@ -92,6 +104,12 @@ public class ds {
 
             }
             break;
+            case "create-user":{
+                break;
+            }
+
+
+
             default: {
                 System.out.println("Ju keni shtypur komanden e gabuar!" +
                         " Komandat qe duhet te perdoren jane: beale, caesar ose playfair");
