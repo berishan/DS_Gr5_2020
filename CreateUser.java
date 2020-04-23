@@ -20,8 +20,8 @@ public class CreateUser {
 
     }
 
-    public static void GenerateKeys(String name) throws Exception {
 
+    public static void GenerateKeys(String name) throws Exception {
 
         KeyPairGenerator keys = KeyPairGenerator.getInstance("RSA");
         keys.initialize(2048);
@@ -30,7 +30,10 @@ public class CreateUser {
         PublicKey publicKey = keyPair.getPublic();
         PrivateKey privateKey = keyPair.getPrivate();
 
+        String privateFileContent = getPrivateKeyAsXml(privateKey);
+        String publicFileContent = getPublicKeyAsXml(publicKey);
 
+        saveUser(privateFileContent, publicFileContent, name);
     }
 
     public static void saveUser(String privateFileContent, String publicFileContent, String name) throws Exception {
