@@ -54,6 +54,26 @@ public class CreateUser {
 
 
     }
+    static String getPrivateKeyAsXml(PrivateKey privateKey) throws Exception{
+
+
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        RSAPrivateCrtKeySpec spec = keyFactory.getKeySpec(privateKey, RSAPrivateCrtKeySpec.class);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<RSAKeyValue>" + NL);
+        sb.append(getElement("Modulus", spec.getModulus()));
+        sb.append(getElement("Exponent", spec.getPublicExponent()));
+        sb.append(getElement("P", spec.getPrimeP()));
+        sb.append(getElement("Q", spec.getPrimeQ()));
+        sb.append(getElement("DP", spec.getPrimeExponentP()));
+        sb.append(getElement("DQ", spec.getPrimeExponentQ()));
+        sb.append(getElement("InverseQ", spec.getCrtCoefficient()));
+        sb.append(getElement("D", spec.getPrivateExponent()));
+        sb.append("</RSAKeyValue>");
+
+        return sb.toString();
+    }
 
 
 
