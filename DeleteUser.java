@@ -14,10 +14,10 @@ public class DeleteUser {
             System.out.println("Eshte larguar celesi publik:    '" + publicfileName + "'.");
         } else if(publicFile.exists() && !privateFile.exists()){
             publicFile.delete();
-            System.out.println("Eshte larguar celesi publik: '" + publicfileName + "'.");
+            System.out.println("Eshte larguar celesi publik:    '" + publicfileName + "'.");
         } else if(!publicFile.exists() && privateFile.exists()){
             privateFile.delete();
-            System.out.println("Eshte larguar celesi privat:" + privatefileName + "'.");
+            System.out.println("Eshte larguar celesi privat:    '" + privatefileName + "'.");
         } else {
             System.out.println("Gabim: Celesi '" + name + "' nuk ekziston.");
         }
