@@ -33,27 +33,23 @@ public class CreateUser {
 
     }
 
-    public static void saveUser(String name, String privateKey, String publicKey) throws Exception {
+    public static void saveUser(String privateFileContent, String publicFileContent, String name) throws Exception {
 
         String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".xml";
         String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.xml";
 
         FileWriter writeFile = new FileWriter(publicfileName);
-
-        writeFile.write(publicKey);
-
+        writeFile.write(privateFileContent);
         writeFile.close();
         System.out.println("Eshte krijuar celesi privat:     '" + privatefileName + "'.");
 
         FileWriter writeAnotherFile = new FileWriter(privatefileName);
-
-        writeAnotherFile.write(privateKey);
-
+        writeAnotherFile.write(publicFileContent);
         writeAnotherFile.close();
         System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
 
 
-    }
+
     static String getPrivateKeyAsXml(PrivateKey privateKey) throws Exception{
 
 
