@@ -1,12 +1,20 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.util.Base64;
+import java.security.spec.RSAPrivateCrtKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.io.StringWriter;
+import java.math.BigInteger;
+import java.security.*;
+import java.io.Console;
+import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class CreateUser {
     static final String NL = System.getProperty("line.separator");
-
 
     public static void checkUser(String name) throws Exception {
 
@@ -14,12 +22,11 @@ public class CreateUser {
 
         if (new File(publicfileName).exists()) {
             System.out.println("Celesi '" + name + "' ekziston paraprakisht.");
-        } else {
+        }
+        else {
             GenerateKeys(name);
         }
-
     }
-
 
     public static void GenerateKeys(String name) throws Exception {
 
@@ -42,6 +49,7 @@ public class CreateUser {
         String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.xml";
 
         FileWriter writeFile = new FileWriter(publicfileName);
+
         writeFile.write(privateFileContent);
         writeFile.close();
         System.out.println("Eshte krijuar celesi privat:     '" + privatefileName + "'.");
@@ -50,11 +58,9 @@ public class CreateUser {
         writeAnotherFile.write(publicFileContent);
         writeAnotherFile.close();
         System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
-
-
+    }
 
     static String getPrivateKeyAsXml(PrivateKey privateKey) throws Exception{
-
 
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         RSAPrivateCrtKeySpec spec = keyFactory.getKeySpec(privateKey, RSAPrivateCrtKeySpec.class);
@@ -91,7 +97,6 @@ public class CreateUser {
     }
 
 
-
     static String getElement(String name, BigInteger bigInt) throws Exception {
         byte[] bytesFromBigInt = getBytesFromBigInt(bigInt);
         String elementContent = getBase64(bytesFromBigInt);
@@ -102,6 +107,7 @@ public class CreateUser {
     static String getBase64(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }
+
 
     static byte[] getBytesFromBigInt(BigInteger bigInt){
 
