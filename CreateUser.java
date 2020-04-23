@@ -55,6 +55,14 @@ public class CreateUser {
     }
 
 
+
+    static String getElement(String name, BigInteger bigInt) throws Exception {
+        byte[] bytesFromBigInt = getBytesFromBigInt(bigInt);
+        String elementContent = getBase64(bytesFromBigInt);
+        return String.format("  <%s>%s</%s>%s", name, elementContent, name, NL);
+    }
+
+
     static String getBase64(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }
