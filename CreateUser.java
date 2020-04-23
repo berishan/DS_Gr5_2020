@@ -4,8 +4,17 @@ import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.util.Base64;
+import java.security.spec.RSAPrivateCrtKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.io.StringWriter;
+import java.math.BigInteger;
+import java.security.*;
+import java.io.Console;
+import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class CreateUser {
+
 
 
     public static void checkUser(String name) throws Exception {
@@ -22,18 +31,17 @@ public class CreateUser {
 
     public static void GenerateKeys(String name) throws Exception {
 
-        Base64.Encoder encoder = Base64.getEncoder();
+
         KeyPairGenerator keys = KeyPairGenerator.getInstance("RSA");
         keys.initialize(2048);
 
         KeyPair keyPair = keys.generateKeyPair();
-        Key publicKey = keyPair.getPublic();
-        Key privateKey = keyPair.getPrivate();
+        PublicKey publicKey = keyPair.getPublic();
+        PrivateKey privateKey = keyPair.getPrivate();
 
-        String privateKeyString = encoder.encodeToString(privateKey.getEncoded());
-        String publicKeyString = encoder.encodeToString(publicKey.getEncoded());
 
-        saveUser(name, privateKeyString, publicKeyString);
+
+
 
 
     }
@@ -44,16 +52,16 @@ public class CreateUser {
         String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.xml";
 
         FileWriter writeFile = new FileWriter(publicfileName);
-        writeFile.write("-----BEGIN RSA PUBLIC KEY-----\n");
+
         writeFile.write(publicKey);
-        writeFile.write("\n-----END RSA PUBLIC KEY-----\n");
+
         writeFile.close();
         System.out.println("Eshte krijuar celesi privat:     '" + privatefileName + "'.");
 
         FileWriter writeAnotherFile = new FileWriter(privatefileName);
-        writeAnotherFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
+
         writeAnotherFile.write(privateKey);
-        writeAnotherFile.write("\n-----END RSA PRIVATE KEY-----\n");
+
         writeAnotherFile.close();
         System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
 
@@ -61,4 +69,3 @@ public class CreateUser {
     }
 
 
-}
