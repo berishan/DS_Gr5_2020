@@ -1,20 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.util.Base64;
-import java.security.spec.RSAPrivateCrtKeySpec;
-import java.security.spec.RSAPublicKeySpec;
-import java.io.StringWriter;
-import java.math.BigInteger;
-import java.security.*;
-import java.io.Console;
-import java.io.PrintWriter;
-import java.util.Arrays;
 
 public class CreateUser {
-
 
 
     public static void checkUser(String name) throws Exception {
@@ -38,10 +28,6 @@ public class CreateUser {
         KeyPair keyPair = keys.generateKeyPair();
         PublicKey publicKey = keyPair.getPublic();
         PrivateKey privateKey = keyPair.getPrivate();
-
-
-
-
 
 
     }
@@ -69,11 +55,21 @@ public class CreateUser {
     }
 
 
-
-
-    static String getBase64(byte[] bytes){
+    static String getBase64(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }
+
+    static byte[] getBytesFromBigInt(BigInteger bigInt){
+
+        byte[] bytes = bigInt.toByteArray();
+        int length = bytes.length;
+        if(length % 2 != 0 && bytes[0] == 0) {
+            bytes = Arrays.copyOfRange(bytes, 1, length);
+        }
+
+        return bytes;
+    }
+}
 
 
 
