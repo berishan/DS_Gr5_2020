@@ -5,6 +5,7 @@ import java.security.KeyPairGenerator;
 import java.util.Base64;
 
 public class CreateUser {
+    static final String NL = System.getProperty("line.separator");
 
 
     public static void checkUser(String name) throws Exception {
@@ -52,6 +53,22 @@ public class CreateUser {
         System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
 
 
+    }
+
+
+
+
+    static String getPublicKeyAsXml(PublicKey publicKey) throws Exception{
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        RSAPublicKeySpec spec = keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<RSAKeyValue>" + NL);
+        sb.append(getElement("Modulus", spec.getModulus()));
+        sb.append(getElement("Exponent", spec.getPublicExponent()));
+        sb.append("</RSAKeyValue>");
+
+        return sb.toString();
     }
 
 
