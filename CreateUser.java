@@ -1,21 +1,10 @@
-/****************************************************************************************
- *  References
- *  For Formatting XML Files
- *  Title: java-to-dotnet-signature
- *  Author: codybartfast
- *  Availability: https://github.com/codybartfast/java-to-dotnet-signature/blob/master/CreateKeysJ/src/CreateKeysJ.java
- */
+
 
 import java.io.File;
 import java.io.FileWriter;
-import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.spec.RSAPrivateCrtKeySpec;
-import java.security.spec.RSAPublicKeySpec;
-import java.util.Arrays;
 import java.util.Base64;
-import java.security.*;
 
 
 public class CreateUser {
