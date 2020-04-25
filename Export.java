@@ -19,11 +19,11 @@ public class Export {
             hasPath = true;
         }
             if (type.equals("private")) {
-                fileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".xml";
+                fileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
                 messageForError = ("Gabim: Celesi privat '" + fileName + "' nuk ekziston.");
                 messageWhenSaved = "Celesi privat u ruajt ne fajllin '" + path + "'.";
             } else if (type.equals("public")) {
-                fileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.xml";
+                fileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
                 messageForError = ("Gabim: Celesi publik '" + fileName + "' nuk ekziston.");
                 messageWhenSaved = "Celesi publik u ruajt ne fajllin '" + path + "'.";
             }
