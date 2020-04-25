@@ -17,7 +17,7 @@ public class Export {
             hasPath = false;
         } else {
             hasPath = true;
-
+        }
             if (type.equals("private")) {
                 fileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".xml";
                 messageForError = ("Gabim: Celesi privat '" + fileName + "' nuk ekziston.");
@@ -47,10 +47,11 @@ public class Export {
                 System.out.println(messageWhenSaved);
             } else if (!hasPath) {
                 System.out.println(data);
+
             }
 
 
         }
     }
-}
+
 
