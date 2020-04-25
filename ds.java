@@ -4,7 +4,6 @@ public class ds {
 
     public static void main(String[] args) throws Exception {
 
-
         if (args.length < 4) {
             if (args[0].equals("caesar") && args[1].equals("bruteForce") && !(args[2].equals(""))) {
                 Caesar.bruteForce(args[2]);
@@ -17,6 +16,7 @@ public class ds {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin tuaj!");
                 }
+                System.exit(0);
             } else if (args[0].equals("delete-user")) {
                 new File(System.getProperty("user.dir") + "/keys").mkdir();
                 try {
@@ -24,13 +24,22 @@ public class ds {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin tuaj!");
                 }
+                System.exit(0);
+            } else if (args[0].equals("export-key")) {
+                try {
+                    String type = args[1];
+                    String name = args[2];
+                    String path = "no path";
+                    Export.exportKey(name, type, path);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Ju lutem shkruani llojin e celesit, emrin e perdoruesit dhe nese doni fajllin ku do te ruhet");
+                }
+                System.exit(0);
+            } else {
+                System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
+                        "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
+                System.exit(1);
             }
-
-        } else {
-
-            System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
-                    "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
-            System.exit(1);
         }
 
 
@@ -111,12 +120,12 @@ public class ds {
 
             }
             break;
-            case "create-user": {
-                System.out.println();
-            }
-            break;
-            case "delete-user": {
-                System.out.println();
+
+            case "export-key": {
+                String type = args[1];
+                String name = args[2];
+                String path = args[3];
+                Export.exportKey(name, type, path);
             }
             break;
 
