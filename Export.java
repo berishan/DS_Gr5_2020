@@ -27,6 +27,30 @@ public class Export {
                 messageForError = ("Gabim: Celesi publik '" + fileName + "' nuk ekziston.");
                 messageWhenSaved = "Celesi publik u ruajt ne fajllin '" + path + "'.";
             }
+
+            try {
+                File myFile = new File(fileName);
+                Scanner myReader = new Scanner(myFile).useDelimiter("(\\b|\\B)");
+                while (myReader.hasNextLine()) {
+                    data = data + myReader.next();
+                }
+                myReader.close();
+            } catch (FileNotFoundException e) {
+                System.out.println(messageForError);
+            }
+
+            if (hasPath) {
+                path = "keys/" + path;
+                FileWriter writeFile = new FileWriter(path);
+                writeFile.write(data);
+                writeFile.close();
+                System.out.println(messageWhenSaved);
+            } else if (!hasPath) {
+                System.out.println(data);
+            }
+
+
         }
     }
 }
+
