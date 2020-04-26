@@ -153,6 +153,28 @@ public class Import {
             return false;
         }
 
+    }  public static void savePublicKey(String name, String publicKey) throws Exception {
+        String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
+        boolean exists = publicUserExists(publicfileName);
+        if (!exists) {
+            FileWriter writeFile = new FileWriter(publicfileName);
+            writeFile.write("-----BEGIN RSA PUBLIC KEY-----\n");
+            writeFile.write(publicKey);
+            writeFile.write("\n-----END RSA PUBLIC KEY-----\n");
+            writeFile.close();
+            System.out.println("Celesi publik u ruajt ne fajllin '" + publicfileName+"'.");
+        } else {
+            System.out.println("Celesi '" + name + "' ekziston paraprakisht.");
+        }
+    }
+    public static boolean publicUserexists(String publicFileName){
+        if (new File(publicfileName).exists()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 }
