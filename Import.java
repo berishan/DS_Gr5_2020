@@ -1,19 +1,21 @@
-import java.net.URL;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.spec.RSAPublicKeySpec;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PublicKey;
+import java.security.PrivateKey;
+import java.util.Base64;
+import java.security.KeyFactory;
+import java.security.spec.PKCS8EncodedKeySpec;
 
 public class Import {
     public static String message = "Fajlli nuk eshte RSA celes ne formatin PEM.";
-
-    public static void main(String[] args) throws Exception {
-        checkUser(args[0], args[1]);
-    }
+        public static void main(String[] args) throws Exception {
+            checkUser(args[0], args[1]);
+        }
 
     public static void importKey(String name, String path) throws Exception {
 
@@ -42,6 +44,7 @@ public class Import {
                     writeFile.write(thirdLine);
                     writeFile.close();
                     message = "Celesi privat u ruajt ne fajllin  '" + privatefileName + "'";
+                    generatePublicKey(secondLine, name);
                 } else if (firstLine.equals("-----BEGIN RSA PUBLIC KEY-----")) {
 
                     String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
@@ -62,14 +65,17 @@ public class Import {
             try {
                 BufferedReader Buff = new BufferedReader(new FileReader(path));
                 String firstLine = Buff.readLine();
+                String secondLine = Buff.readLine();
                 Buff.close();
                 File importedFile = new File(path);
                 if (firstLine.equals("-----BEGIN RSA PRIVATE KEY-----")) {
                     String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
 
+
                     if (importedFile.renameTo(new File(privatefileName))) {
                         importedFile.delete();
                         System.out.println("Celesi privat u ruajt ne fajllin  '" + privatefileName + "'");
+                        generatePublicKey(secondLine, name);
                     } else {
                         System.out.println("Gabim: Celesi '" + name + "' ekziston paraprakisht.");
                     }
@@ -106,6 +112,47 @@ public class Import {
 
 
     }
+    static String getBase64 ( byte[] bytes){
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    public static void generatePublicKey(String privateKeyS, String name) throws Exception{
+        byte[] decoded = Base64.getDecoder().decode(privateKeyS);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
+        KeyFactory kf = KeyFactory.getInstance("RSA");
+        PrivateKey privateKey = kf.generatePrivate(keySpec);
+
+        RSAPrivateCrtKey privk = (RSAPrivateCrtKey) privateKey;
+
+        RSAPublicKeySpec publicKeySpec = new java.security.spec.RSAPublicKeySpec(privk.getModulus(), privk.getPublicExponent());
+
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PublicKey myPublicKey = keyFactory.generatePublic(publicKeySpec);
+        String publickKeyS    = getBase64(myPublicKey.getEncoded());
+        savePublicKey(name, publickKeyS);
+    }
+    public static void savePublicKey(String name, String publicKey) throws Exception {
+        String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
+        boolean exists = publicUserExists(publicfileName);
+        if (!exists) {
+            FileWriter writeFile = new FileWriter(publicfileName);
+            writeFile.write("-----BEGIN RSA PUBLIC KEY-----\n");
+            writeFile.write(publicKey);
+            writeFile.write("\n-----END RSA PUBLIC KEY-----\n");
+            writeFile.close();
+            System.out.println("Celesi publik u ruajt ne fajllin '" + publicfileName+"'.");
+        } else {
+            System.out.println("Celesi '" + name + "' ekziston paraprakisht.");
+        }
+    }
+
+    public static boolean publicUserExists(String publicFileName){
+        if (new File(publicFileName).exists()) {
+            return true;
+        } else {
+            return false;
+        }
+
 
 
 }
