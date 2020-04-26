@@ -1,8 +1,13 @@
-import java.io.*;
+
+import java.net.URL;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import static java.nio.file.StandardCopyOption.*;
 
 
 public class Import {
@@ -61,11 +66,8 @@ public class Import {
                 String firstLine = Buff.readLine();
                 Buff.close();
                 File importedFile = new File(path);
-                System.out.println(firstLine);
                 if (firstLine.equals("-----BEGIN RSA PRIVATE KEY-----")) {
-
                     String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
-
 
                     if (importedFile.renameTo(new File(privatefileName))) {
                         importedFile.delete();
@@ -93,7 +95,6 @@ public class Import {
             }
         }
     }
-
 
     public static void checkUser(String name, String path) throws Exception {
 
