@@ -35,7 +35,21 @@ public class ds {
                     System.out.println("Ju lutem shkruani llojin e celesit, emrin e perdoruesit dhe nese doni fajllin ku do te ruhet");
                 }
                 System.exit(0);
-            } else {
+
+            }else if(args[0].equals("import-key")){
+                try{
+                    Import.checkUser(args[1], args[2]);
+
+
+                }
+                catch(IndexOutOfBoundsException e){
+                    System.out.println("Ju lutem shkruani emrin e file-it dhe percaktoni shtegun");
+
+                }
+                System.exit(0);
+
+            }
+            else {
                 System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
                         "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
                 System.exit(1);
