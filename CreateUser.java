@@ -55,7 +55,7 @@ public class CreateUser {
         FileWriter writeAnotherFile = new FileWriter(publicfileName);
         writeAnotherFile.write("-----BEGIN RSA PUBLIC KEY-----\n");
         writeAnotherFile.write(publicFileContent);
-        writeAnotherFile.write("-----END RSA PUBLIC KEY-----\n");
+        writeAnotherFile.write("\n-----END RSA PUBLIC KEY-----\n");
 
         writeAnotherFile.close();
         System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
