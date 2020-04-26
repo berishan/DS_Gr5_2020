@@ -7,13 +7,17 @@ import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
 
 public class Import {
     public static String message = "Fajlli nuk eshte RSA celes ne formatin PEM.";
 
-    public static void main(String[] args) throws Exception {
-        checkUser(args[0], args[1]);
-    }
+
 
     public static void importKey(String name, String path) throws Exception {
 
@@ -153,6 +157,7 @@ public class Import {
         }
 
     }
+
 
 
 
