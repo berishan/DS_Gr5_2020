@@ -1,10 +1,8 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import static java.nio.file.StandardCopyOption.*;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.*;
 
 
 public class Import {
@@ -27,6 +25,7 @@ public class Import {
 
             if (importedFile.renameTo(new File(privatefileName))) {
                 importedFile.delete();
+                System.out.println("Celesi privat u ruaj ne fajllin  '" + privatefileName + "'");
             } else {
                 System.out.println("Gabim: Celesi '" + name + "' ekziston paraprakisht.");
             }
@@ -36,6 +35,7 @@ public class Import {
 
             if (importedFile.renameTo(new File(publicfileName))) {
                 importedFile.delete();
+                System.out.println("Celesi publik u ruaj ne fajllin '" + publicfileName + "'");
 
             } else {
                 System.out.println("Gabim: Celesi '" + name + "' ekziston paraprakisht.");
