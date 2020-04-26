@@ -42,17 +42,17 @@ public class CreateUser {
 
     public static void saveUser(String privateFileContent, String publicFileContent, String name) throws Exception {
 
-        String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
-        String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
+        String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
+        String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
 
-        FileWriter writeFile = new FileWriter(publicfileName);
+        FileWriter writeFile = new FileWriter(privatefileName);
         writeFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
         writeFile.write(privateFileContent);
         writeFile.write("\n-----END RSA PRIVATE KEY-----\n");
         writeFile.close();
         System.out.println("Eshte krijuar celesi privat:     '" + privatefileName + "'.");
 
-        FileWriter writeAnotherFile = new FileWriter(privatefileName);
+        FileWriter writeAnotherFile = new FileWriter(publicfileName);
         writeAnotherFile.write("-----BEGIN RSA PUBLIC KEY-----\n");
         writeAnotherFile.write(publicFileContent);
         writeAnotherFile.write("-----END RSA PUBLIC KEY-----\n");
