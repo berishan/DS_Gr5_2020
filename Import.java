@@ -1,4 +1,3 @@
-
 import java.net.URL;
 import java.io.File;
 import java.io.FileReader;
@@ -8,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 
 public class Import {
     public static String message = "Fajlli nuk eshte RSA celes ne formatin PEM.";
