@@ -92,4 +92,24 @@ public class Encrypt {
         }
 
     }
+
+    public static void saveOrShow(String name, String message, String path) throws Exception {
+        String name64 = base64Encode(name);
+        String iv = encodeBytes();
+        String nora = DES(message, name);
+        if (path.equals("no path")) {
+            System.out.println(name64 + "." + iv + "." + nora);
+        } else {
+            try {
+                File file = new File(path);
+                FileWriter writeFile = new FileWriter(file);
+                writeFile.write(name64 + "." + iv + "." + nora);
+                writeFile.close();
+            } catch (Exception e) {
+                System.out.println("Ju lutem shkruani nje path valid.");
+            }
+        }
+
+    }
+
 }
