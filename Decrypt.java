@@ -29,4 +29,9 @@ public class Decrypt {
             System.out.println("Ju lutem shkruani nje path valid.");
         }
     }
+    public static String readKeyName(String encryptedName) throws UnsupportedEncodingException {
+        byte[] bytes = Base64.getDecoder().decode(encryptedName);
+        String value = new String(bytes, "UTF-8");
+        return value;
+    }
 }
