@@ -68,4 +68,28 @@ public class Encrypt {
         String cipherTextString = Base64.getEncoder().encodeToString(cipherText);
         return cipherTextString;
     }
+
+
+
+    public static String readPublicKey(String name) throws Exception {
+        String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
+        try {
+            BufferedReader Buff = new BufferedReader(new FileReader(publicfileName));
+            String firstLine = Buff.readLine();
+            if (firstLine.equals("-----BEGIN RSA PUBLIC KEY-----")) {
+                String secondLine = Buff.readLine();
+                Buff.close();
+                return secondLine;
+
+            } else {
+                System.out.println("File nuk permban celes publik RSA.");
+                Buff.close();
+                return "gabim";
+            }}
+        catch (FileNotFoundException e) {
+            System.out.println("Celesi publik '" + name + "' nuk ekziston.");
+            return "p";
+        }
+
+    }
 }
