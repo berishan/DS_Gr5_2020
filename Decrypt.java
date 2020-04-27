@@ -70,5 +70,12 @@ public class Decrypt {
         }
 
     }
+    public static void decryptMessage(SecretKey key, String message) throws Exception{
+        Cipher dcipher = Cipher.getInstance("DES");
+        dcipher.init(Cipher.DECRYPT_MODE, key);
+        byte[] dec = Base64.getDecoder().decode(message);
+        byte[] utf8 = dcipher.doFinal(dec);
+        System.out.println("Mesazhi: " + new String(utf8, "UTF8"));
+    }
 
 }
