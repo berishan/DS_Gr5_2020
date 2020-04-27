@@ -52,4 +52,20 @@ public class Encrypt {
         String nora = Base64.getEncoder().encodeToString(enc);
         return test + "." + nora;
     }
+    private static String RSA(byte[] keyBytes, String name) throws Exception {
+        String publicK = readPublicKey(name);
+        if(publicK.equals("p")){
+            System.exit(-1);
+        }
+        byte[] publicBytes = Base64.getDecoder().decode(publicK);
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PublicKey pubKey = keyFactory.generatePublic(keySpec);
+
+        final Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, pubKey);
+        byte[] cipherText = cipher.doFinal(keyBytes);
+        String cipherTextString = Base64.getEncoder().encodeToString(cipherText);
+        return cipherTextString;
+    }
 }
