@@ -1,3 +1,9 @@
+import java.math.BigInteger;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.RSAPublicKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -68,11 +74,13 @@ public class Encrypt {
         //byte[] enc = ecipher.doFinal(utf8);
     }
     public static void encryptKey(String name, byte[] key) throws Exception {
-        String RSAkey = readPublicKey(name);
+        String RSAkeyString = readPublicKey(name);
+        byte[] decoded = Base64.getDecoder().decode(RSAkeyString);
         if(key.equals("gabim")){
 
         }
         else{
+
         }
 
     }
