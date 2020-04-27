@@ -51,7 +51,23 @@ public class Decrypt {
         SecretKey DESKey = new SecretKeySpec(dec,0, dec.length, "DES");
         decryptMessage(DESKey, desMessage);
 
+    }
 
+    public static String readPrivateKey(String name) throws IOException {
+        String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
+
+        BufferedReader Buff = new BufferedReader(new FileReader(privatefileName));
+        String firstLine = Buff.readLine();
+        if(firstLine.equals("-----BEGIN RSA PRIVATE KEY-----")) {
+            String secondLine = Buff.readLine();
+            Buff.close();
+            return secondLine;
+        }
+        else {
+            System.out.println("Celesi privat '" + name + "' nuk eksizton.");
+            Buff.close();
+            return "p";
+        }
 
     }
 
