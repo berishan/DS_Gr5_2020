@@ -34,4 +34,25 @@ public class Decrypt {
         String value = new String(bytes, "UTF-8");
         return value;
     }
+
+    public static void readDESKey(String name, String message, String desMessage) throws Exception  {
+        String privateKeyString = readPrivateKey(name);
+        if(privateKeyString.equals("p")){
+            System.exit(-1);
+        }
+        byte[] decoded = Base64.getDecoder().decode(privateKeyString);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
+        KeyFactory kf = KeyFactory.getInstance("RSA");
+        PrivateKey privateKey = kf.generatePrivate(keySpec);
+        Cipher dcipher = Cipher.getInstance("RSA");
+        dcipher.init(Cipher.DECRYPT_MODE, privateKey);
+
+        byte[] dec = dcipher.doFinal(Base64.getDecoder().decode(message));
+        SecretKey DESKey = new SecretKeySpec(dec,0, dec.length, "DES");
+        decryptMessage(DESKey, desMessage);
+
+
+
+    }
+
 }
