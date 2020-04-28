@@ -7,18 +7,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
 public class Decrypt {
-    public static void main(String[] args) throws Exception {
-        String str = args[0];
-        String strArray[] = str.split("\\.");
-        int numri = strArray.length;
-        if(strArray[numri-1].equals("txt")) {
-            readFile(str);
-        }
-        else {
-            readMessage(str);
-        }
 
-    }
 
     public static void readMessage(String message) throws Exception {
         String[] messageArray = message.split("\\.");
