@@ -59,6 +59,19 @@ public class ds {
                 }
                 System.exit(0);
             }
+            else if (args[0].equals("write-message")){
+                String str = args[0];
+                String strArray[] = str.split("\\.");
+                int numri = strArray.length;
+                if(strArray[numri-1].equals("txt")) {
+                    Decrypt.readFile(str);
+                }
+                else {
+                    Decrypt.readMessage(str);
+                }
+                System.exit(0);
+
+            }
 
 
             else {
