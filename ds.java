@@ -169,6 +169,16 @@ public class ds {
             }
             break;
 
+            case "write-message": {
+                try{
+                Encrypt.saveOrShow(args[1], args[2], args[3]);
+            } catch(IndexOutOfBoundsException e)  {
+                    System.out.println("Ju lutem shkruani emrin e marresit dhe mesazhin");
+                }
+
+                }
+                break;
+
             default: {
                 System.out.println("Ju keni shtypur komanden e gabuar!" +
                         " Komandat qe duhet te perdoren jane: beale, caesar ose playfair");
