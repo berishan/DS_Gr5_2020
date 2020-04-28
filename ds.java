@@ -49,6 +49,18 @@ public class ds {
                 System.exit(0);
 
             }
+            else if (args[0].equals("read-message")){
+                try {
+                    Encrypt.saveOrShow(args[0], args[1], args[2]);
+
+
+                } catch (IndexOutOfBoundsException e) {
+                    Encrypt.saveOrShow(args[0], args[1], "no path");
+                }
+                System.exit(0);
+            }
+
+
             else {
                 System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
                         "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
