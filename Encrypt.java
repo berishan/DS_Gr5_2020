@@ -12,14 +12,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Encrypt {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            saveOrShow(args[0], args[1], args[2]);
 
-        } catch (IndexOutOfBoundsException e) {
-            saveOrShow(args[0], args[1], "no path");
-        }
-    }
 
     private static String encodeBytes() {
         byte[] b = new byte[8];
