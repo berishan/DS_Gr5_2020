@@ -114,7 +114,7 @@ public class Pf {
             int c1 = (int) getPoint(a).getY();
             int c2 = (int) getPoint(b).getY();
 
-            // case 1: letters in digraph are of same row, shift columns to right
+            // case 1: letters in digraph are of same row, shift columns to right.
             if (r1 == r2) {
                 c1 = (c1 + 1) % 5;
                 c2 = (c2 + 1) % 5;
@@ -131,7 +131,7 @@ public class Pf {
                 c2 = temp;
             }
 
-            //performs the table look-up and puts those values into the encoded array
+            //performs the table look-up and puts those values into the encoded array.
             enc[i] = table[r1][c1] + "" + table[r2][c2];
         }
         return enc;
