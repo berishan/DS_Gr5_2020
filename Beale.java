@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Beale {
     public static String decode(String file, String desc) throws IOException {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(System.getProperty("user.dir") + "\\" + file))); //e ndrrojme tani nese duhet se idk qysh duhet sig
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(System.getProperty("user.dir") + "\\" + file)));
         char[] list = new char[1000];
         String line = br.readLine();
         char[] words;
