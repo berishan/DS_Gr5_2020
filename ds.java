@@ -49,18 +49,19 @@ public class ds {
                 System.exit(0);
 
             }
-            else if (args[0].equals("read-message")){
+            else if (args[0].equals("write-message")){
                 try {
-                    Encrypt.saveOrShow(args[0], args[1], args[2]);
+                    Encrypt.saveOrShow(args[1], args[2], "no path");
+
 
 
                 } catch (IndexOutOfBoundsException e) {
-                    Encrypt.saveOrShow(args[0], args[1], "no path");
+                    System.out.println("Ju lutem shkruani emrin e marresit dhe mesazhin");
                 }
                 System.exit(0);
             }
-            else if (args[0].equals("write-message")){
-                String str = args[0];
+            else if (args[1].equals("read-message")){
+                String str = args[1];
                 String strArray[] = str.split("\\.");
                 int numri = strArray.length;
                 if(strArray[numri-1].equals("txt")) {
