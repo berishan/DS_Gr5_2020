@@ -24,7 +24,7 @@ public class Caesar {
     }
 
 
-    public static String decrypt(String cipherText, int key) {
+    public static String decrypt (String cipherText, int key) {
         String dText = "";
         for (int i = 0; i < cipherText.length(); i++) {
             char c = cipherText.charAt(i);
