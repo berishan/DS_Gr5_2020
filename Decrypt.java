@@ -8,10 +8,26 @@ import java.util.Base64;
 
 public class Decrypt {
     public static void main(String[] args) throws Exception {
-        readMessage(args[0]);
+        String str = args[0];
+        String strArray[] = str.split("\\.");
+        int numri = strArray.length;
+        if(strArray[numri-1].equals("txt")) {
+            readFile(str);
+        }
+        else {
+            readMessage(str);
+        }
+
     }
 
-    public static void readMessage(String path) throws Exception {
+    public static void readMessage(String message) throws Exception {
+        String[] messageArray = message.split("\\.");
+        String name = readKeyName(messageArray[0]);
+        System.out.println("Marresi: " + name);
+        readDESKey(name, messageArray[2], messageArray[3]);
+    }
+
+    public static void readFile(String path) throws Exception {
         try {
             StringBuffer response = new StringBuffer();
             String inputLine;
@@ -20,11 +36,10 @@ public class Decrypt {
                 response.append(inputLine);
             }
             String message = response.toString();
-            String message1 = message.replace(".", "NORA");
-            String[] test = message1.split("NORA");
-            String name = readKeyName(test[0]);
+            String[] messageArray = message.split("\\.");
+            String name = readKeyName(messageArray[0]);
             System.out.println("Marresi: " + name);
-            readDESKey(name, test[2], test[3]);
+            readDESKey(name, messageArray[2], messageArray[3]);
         } catch (FileNotFoundException e) {
             System.out.println("Ju lutem shkruani nje path valid.");
         }
@@ -37,7 +52,7 @@ public class Decrypt {
 
     public static void readDESKey(String name, String message, String desMessage) throws Exception  {
         String privateKeyString = readPrivateKey(name);
-        if(privateKeyString.equals("p")){
+        if(privateKeyString.equals("nuk ekziston celesi")){
             System.exit(-1);
         }
         byte[] decoded = Base64.getDecoder().decode(privateKeyString);
@@ -54,9 +69,9 @@ public class Decrypt {
     }
 
     public static String readPrivateKey(String name) throws IOException {
-        String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
+        String privateFileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
 
-        BufferedReader Buff = new BufferedReader(new FileReader(privatefileName));
+        BufferedReader Buff = new BufferedReader(new FileReader(privateFileName));
         String firstLine = Buff.readLine();
         if(firstLine.equals("-----BEGIN RSA PRIVATE KEY-----")) {
             String secondLine = Buff.readLine();
@@ -66,7 +81,7 @@ public class Decrypt {
         else {
             System.out.println("Celesi privat '" + name + "' nuk eksizton.");
             Buff.close();
-            return "p";
+            return "nuk ekziston celesi";
         }
 
     }
