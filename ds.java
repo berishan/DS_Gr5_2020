@@ -60,7 +60,8 @@ public class ds {
                 }
                 System.exit(0);
             }
-            else if (args[1].equals("read-message")){
+            else if (args[0].equals("read-message")){
+                try {
                 String str = args[1];
                 String strArray[] = str.split("\\.");
                 int numri = strArray.length;
@@ -69,6 +70,9 @@ public class ds {
                 }
                 else {
                     Decrypt.readMessage(str);
+                }
+                } catch(IndexOutOfBoundsException e){
+                    System.out.println("Ju lutem shkrauni mesazhin qe doni ta dekriptoni");
                 }
                 System.exit(0);
 
