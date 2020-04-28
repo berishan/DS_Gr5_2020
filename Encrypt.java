@@ -7,8 +7,6 @@ import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 
@@ -42,19 +40,19 @@ public class Encrypt {
         SecretKey key = KeyGenerator.getInstance("DES").generateKey();
         byte[] keyBytes = key.getEncoded();
 
-        String test = RSA(keyBytes, name);
+        String encryptedRSA = RSA(keyBytes, name);
 
         Cipher ecipher = Cipher.getInstance("DES");
         ecipher.init(Cipher.ENCRYPT_MODE, key);
 
         byte[] utf8 = message.getBytes("UTF8");
         byte[] enc = ecipher.doFinal(utf8);
-        String nora = Base64.getEncoder().encodeToString(enc);
-        return test + "." + nora;
+        String encryptedDES = Base64.getEncoder().encodeToString(enc);
+        return encryptedRSA + "." + encryptedDES;
     }
     private static String RSA(byte[] keyBytes, String name) throws Exception {
         String publicK = readPublicKey(name);
-        if(publicK.equals("p")){
+        if(publicK.equals("celesi nuk ekziston")){
             System.exit(-1);
         }
         byte[] publicBytes = Base64.getDecoder().decode(publicK);
@@ -62,7 +60,7 @@ public class Encrypt {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PublicKey pubKey = keyFactory.generatePublic(keySpec);
 
-        final Cipher cipher = Cipher.getInstance("RSA");
+         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, pubKey);
         byte[] cipherText = cipher.doFinal(keyBytes);
         String cipherTextString = Base64.getEncoder().encodeToString(cipherText);
@@ -88,7 +86,7 @@ public class Encrypt {
             }}
         catch (FileNotFoundException e) {
             System.out.println("Celesi publik '" + name + "' nuk ekziston.");
-            return "p";
+            return "celesi nuk ekziston";
         }
 
     }
@@ -96,14 +94,14 @@ public class Encrypt {
     public static void saveOrShow(String name, String message, String path) throws Exception {
         String name64 = base64Encode(name);
         String iv = encodeBytes();
-        String nora = DES(message, name);
+        String des = DES(message, name);
         if (path.equals("no path")) {
-            System.out.println(name64 + "." + iv + "." + nora);
+            System.out.println(name64 + "." + iv + "." + des);
         } else {
             try {
                 File file = new File(path);
                 FileWriter writeFile = new FileWriter(file);
-                writeFile.write(name64 + "." + iv + "." + nora);
+                writeFile.write(name64 + "." + iv + "." + des);
                 writeFile.close();
             } catch (Exception e) {
                 System.out.println("Ju lutem shkruani nje path valid.");
