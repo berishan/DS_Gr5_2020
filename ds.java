@@ -63,7 +63,7 @@ public class ds {
             else if (args[0].equals("read-message")){
                 try {
                 String str = args[1];
-                String strArray[] = str.split("\\.");
+                String[] strArray = str.split("\\.");
                 int numri = strArray.length;
                 if(strArray[numri-1].equals("txt")) {
                     Decrypt.readFile(str);
@@ -80,8 +80,7 @@ public class ds {
 
 
             else {
-                System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet." +
-                        "Ju lutem specifikoni komanden, nenkomanden, celesin dhe tekstin! ");
+                System.out.println("Numri i argumenteve eshte me i vogel sesa qe duhet.");
                 System.exit(1);
             }
         }
@@ -184,8 +183,7 @@ public class ds {
                 break;
 
             default: {
-                System.out.println("Ju keni shtypur komanden e gabuar!" +
-                        " Komandat qe duhet te perdoren jane: beale, caesar ose playfair");
+                System.out.println("Ju keni shtypur komanden e gabuar!");
                 System.exit(1);
             }
         }
