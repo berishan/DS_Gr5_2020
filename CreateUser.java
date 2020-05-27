@@ -5,22 +5,26 @@ import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
+import java.util.regex.Pattern;
 
 
 public class CreateUser {
 
 
-    public static void checkUser(String name) throws Exception {
+    public static boolean checkUser(String name)  {
 
         String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
 
         if (new File(publicfileName).exists()) {
             System.out.println("Celesi '" + name + "' ekziston paraprakisht.");
-        }
-        else {
-            GenerateKeys(name);
-        }
-    }
+            return false;
+        } else
+            return true;}
+//        else {
+//
+//            GenerateKeys(name);
+//        }
+
 
     public static void GenerateKeys(String name) throws Exception {
 
@@ -34,8 +38,8 @@ public class CreateUser {
         byte[] publicKeyEncoded = publicKey.getEncoded();
         byte[] privateKeyEncoded = privateKey.getEncoded();
 
-        String privateFileContent =  getBase64(privateKeyEncoded);
-        String publicFileContent =  getBase64(publicKeyEncoded);
+        String privateFileContent = getBase64(privateKeyEncoded);
+        String publicFileContent = getBase64(publicKeyEncoded);
 
         saveUser(privateFileContent, publicFileContent, name);
     }
@@ -60,12 +64,20 @@ public class CreateUser {
         writeAnotherFile.close();
         System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
     }
-    static String getBase64 ( byte[] bytes){
+
+    static String getBase64(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
 
+    public static boolean correctPassword(String password) {
+        String regex = "^(?=.*[@#$%^&+=])|(?=.*[0-9])(?=\\S+$).{6,}$";
+        return Pattern.matches(regex, password);
+    }
 }
+
+
+
 
 
 

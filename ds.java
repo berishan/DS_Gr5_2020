@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.io.File;
 
 public class ds {
@@ -12,7 +13,33 @@ public class ds {
             } else if (args[0].equals("create-user")) {
                 new File(System.getProperty("user.dir") + "/keys").mkdir();
                 try {
-                    CreateUser.checkUser(args[1]);
+                   boolean newUser = CreateUser.checkUser(args[1]);
+                   if(newUser){
+                       Console console = System.console();
+                       System.out.println("Jepni fjalekalimin:");
+                       char[] charPassword = console.readPassword();
+                       String password = new String(charPassword);
+                       boolean correctPassword = CreateUser.correctPassword(password);
+                       if(correctPassword){
+                           System.out.println("Perseritni fjalekalimin:");
+                           char[] charConfrimPassword = console.readPassword();
+                           String confirmPassword = new String(charConfrimPassword);
+                           if(confirmPassword.equals(password)){
+                               System.out.println("Bravo");
+                               CreateUser.GenerateKeys(args[1]);
+                           }
+                           else {
+                               System.out.println("Fjalekalimet nuk perputhen.");
+                           }
+                       }
+                       else {
+                           System.out.println("Fjalekalimi duhet te permbaje se pak 6 karaktere dhe se paku nje simbol use numer.");
+                            System.exit(-1);
+                       }
+
+
+                   }
+
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin tuaj!");
                 }
