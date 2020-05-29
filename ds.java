@@ -27,6 +27,7 @@ public class ds {
                            if(confirmPassword.equals(password)){
                                System.out.println("Bravo");
                                CreateUser.GenerateKeys(args[1]);
+                               CreateUser.updateDatabase(args[1],password);
                            }
                            else {
                                System.out.println("Fjalekalimet nuk perputhen.");
@@ -38,6 +39,9 @@ public class ds {
                        }
 
 
+                   }
+                   else {
+                       System.exit(-1);
                    }
 
                 } catch (IndexOutOfBoundsException e) {
