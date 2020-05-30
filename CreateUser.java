@@ -83,7 +83,7 @@ public class CreateUser {
             Connection con = DriverManager.getConnection("jdbc:sqlite:C:\\Sqlite\\db\\projekti_siguri.db");
             Statement statement = con.createStatement();
             byte[] salt = generateSalt();
-            String dbSalt = Base64.getEncoder().encodeToString(generateSalt());
+            String dbSalt = Base64.getEncoder().encodeToString(salt);
             String hashedPassword = hashPassword(salt,password);
             if(!hashedPassword.equals("gabim")) {
                 String query = "INSERT INTO users (name, salt, hashed_password) VALUES ('" + name + "', '" + dbSalt + "', '" + hashedPassword + "')";
@@ -93,7 +93,6 @@ public class CreateUser {
             }
         } catch (SQLException e) {
             System.out.println("Ndodhi nje gabim");
-            System.out.println(e);
             System.exit(-1);
         }
     }
