@@ -48,7 +48,16 @@ public class ds {
                     System.out.println("Ju lutem shkruani emrin tuaj!");
                 }
                 System.exit(0);
-            } else if (args[0].equals("delete-user")) {
+            }
+            else if(args[0].equals("login")){
+                Console console = System.console();
+                System.out.println("Jepni fjalekalimin:");
+                char[] charPassword = console.readPassword();
+                String password = new String(charPassword);
+                Login.dbConnect(args[1], password);
+                System.exit(-1);
+            }
+            else if (args[0].equals("delete-user")) {
                 new File(System.getProperty("user.dir") + "/keys").mkdir();
                 try {
                     DeleteUser.deleteUser(args[1]);
