@@ -29,10 +29,10 @@ public class CreateUser {
 //        }
 
 
-    public static void GenerateKeys(String name) throws Exception {
+    public static void GenerateKeys(String name, String password) throws Exception {
 
         KeyPairGenerator keys = KeyPairGenerator.getInstance("RSA");
-        keys.initialize(512);
+        keys.initialize(2048);
 
         KeyPair keyPair = keys.generateKeyPair();
         PublicKey publicKey = keyPair.getPublic();
@@ -43,15 +43,14 @@ public class CreateUser {
 
         String privateFileContent = getBase64(privateKeyEncoded);
         String publicFileContent = getBase64(publicKeyEncoded);
-
-        saveUser(privateFileContent, publicFileContent, name);
+        saveUser(privateFileContent, publicFileContent, name, password);
     }
 
-    public static void saveUser(String privateFileContent, String publicFileContent, String name) throws Exception {
+    public static void saveUser(String privateFileContent, String publicFileContent, String name, String password) throws Exception {
 
         String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
         String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
-
+        updateDatabase(name, password,privatefileName, publicfileName);
         FileWriter writeFile = new FileWriter(privatefileName);
         writeFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
         writeFile.write(privateFileContent);
@@ -69,6 +68,7 @@ public class CreateUser {
     }
 
     static String getBase64(byte[] bytes) {
+
         return Base64.getEncoder().encodeToString(bytes);
     }
 
@@ -78,7 +78,7 @@ public class CreateUser {
         return Pattern.matches(regex, password);
     }
 
-    public static void updateDatabase(String name,String password) {
+    public static void updateDatabase(String name,String password,String privateKeyPath, String publicKeyPath) {
         try {
             Connection con = DriverManager.getConnection("jdbc:sqlite:C:\\Sqlite\\db\\projekti_siguri.db");
             Statement statement = con.createStatement();
@@ -86,7 +86,9 @@ public class CreateUser {
             String dbSalt = Base64.getEncoder().encodeToString(salt);
             String hashedPassword = hashPassword(salt,password);
             if(!hashedPassword.equals("gabim")) {
-                String query = "INSERT INTO users (name, salt, hashed_password) VALUES ('" + name + "', '" + dbSalt + "', '" + hashedPassword + "')";
+                String query = "INSERT INTO users(name, salt, hashed_password, priv_key_path, pub_key_path)" +
+                        " VALUES ('"+name+"', '"+dbSalt + "', '" +hashedPassword +"', '" +
+                        privateKeyPath+"', '"+publicKeyPath+"')";
                 statement.execute(query);
                 statement.close();
                 con.close();

@@ -26,8 +26,7 @@ public class ds {
                            String confirmPassword = new String(charConfrimPassword);
                            if(confirmPassword.equals(password)){
                                System.out.println("Bravo");
-                               CreateUser.GenerateKeys(args[1]);
-                               CreateUser.updateDatabase(args[1],password);
+                               CreateUser.GenerateKeys(args[1], password);
                            }
                            else {
                                System.out.println("Fjalekalimet nuk perputhen.");
@@ -54,7 +53,7 @@ public class ds {
                 System.out.println("Jepni fjalekalimin:");
                 char[] charPassword = console.readPassword();
                 String password = new String(charPassword);
-                Login.dbConnect(args[1], password);
+                Login.dbConnect(args[1], "nora123");
                 System.exit(-1);
             }
             else if (args[0].equals("delete-user")) {
