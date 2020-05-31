@@ -57,10 +57,8 @@ public class Login {
         }
     }
     public static void generateToken(String name,String privateKeyPath) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        System.out.println("token");
         RSAPrivateKey privateKey = readPrivateKey(privateKeyPath);
         Algorithm algorithmRS = Algorithm.RSA256(null, privateKey);
-        System.out.println(algorithmRS);
         try {
             String token = JWT.create()
                     .withIssuer("nora")
@@ -74,7 +72,6 @@ public class Login {
 
     }
 
-
     }
 
     public static RSAPrivateKey readPrivateKey(String path) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
@@ -87,7 +84,6 @@ public class Login {
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
             KeyFactory kf = KeyFactory.getInstance("RSA");
             PrivateKey privateKey = kf.generatePrivate(keySpec);
-            System.out.println((RSAPrivateKey)privateKey);
             return (RSAPrivateKey)privateKey;
         }
         else {
