@@ -96,9 +96,7 @@ public class ds {
 
             } else if (args[0].equals("write-message")) {
                 try {
-                    Encrypt.saveOrShow(args[1], args[2], "no path");
-
-
+                    Encrypt.saveOrShow(args[1], args[2], "no path", "nosender", "notoken");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin e marresit dhe mesazhin");
                 }
@@ -212,10 +210,20 @@ public class ds {
             break;
 
             case "write-message": {
+                if(args.length < 5) {
                 try {
-                    Encrypt.saveOrShow(args[1], args[2], args[3]);
+                    Encrypt.saveOrShow(args[1], args[2], args[3], "nosender", "notoken");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin e marresit dhe mesazhin");
+                }
+            }
+                else {
+                    try {
+                        String sender = args[4].replace("--", "");
+                        Encrypt.saveOrShow(args[1], args[2], args[3],sender, args[5]);
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("Ju lutem shkruani edhe token.");
+                    }
                 }
 
             }
