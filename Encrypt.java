@@ -20,7 +20,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Encrypt {
 
-
     private static PrivateKey PrivateKey;
     private static String signature = "";
     private static String encSender = "";
@@ -61,14 +60,13 @@ public class Encrypt {
                 sig.update(enc);
                 byte[] signatureBytes = sig.sign();
                 signature = Base64.getEncoder().encodeToString(signatureBytes);
-                System.out.println("bra");
             }
         }
         else {
             System.exit(-1);
         }
 
-        return encryptedRSA + "." + encryptedDES;
+        return encryptedRSA + "." + encryptedDES + "." + encSender + "."+ signature;
        
     }
     private static String RSA(byte[] keyBytes, String name) throws Exception {
