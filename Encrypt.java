@@ -62,10 +62,6 @@ public class Encrypt {
                 signature = Base64.getEncoder().encodeToString(signatureBytes);
             }
         }
-        else {
-            System.exit(-1);
-        }
-
         return encryptedRSA + "." + encryptedDES + "." + encSender + "."+ signature;
        
     }
@@ -132,6 +128,10 @@ public class Encrypt {
     public static boolean tokenIsValid(String sender,String token) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
         String path = Status.dbConnect(sender);
         RSAPublicKey publicKey = Status.readPublicKey(path);
+        if(publicKey == null){
+            System.out.println("Celesi privat: '" + sender + "' nuk ekziston");
+            System.exit(-1);
+        }
         Algorithm algorithm = Algorithm.RSA256(publicKey, null);
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer("nora")
