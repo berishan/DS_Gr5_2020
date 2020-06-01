@@ -1,19 +1,24 @@
-import javax.crypto.*;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
-import java.security.KeyFactory;
-import java.security.PrivateKey;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
 public class Decrypt {
-
+    private static PublicKey PublicKey;
 
     public static void readMessage(String message) throws Exception {
         String[] messageArray = message.split("\\.");
-        String name = readKeyName(messageArray[0]);
-        System.out.println("Marresi: " + name);
-        readDESKey(name, messageArray[2], messageArray[3]);
+            String name = readKeyName(messageArray[0]);
+            System.out.println("Marresi: " + name);
+            readDESKey(name, messageArray[2], messageArray[3]);
+            if(messageArray.length == 6){
+                readSender(messageArray[4], messageArray[5], messageArray[3]);
+            }
+
     }
 
     public static void readFile(String path) throws Exception {
@@ -29,14 +34,16 @@ public class Decrypt {
             String name = readKeyName(messageArray[0]);
             System.out.println("Marresi: " + name);
             readDESKey(name, messageArray[2], messageArray[3]);
+            if(messageArray.length == 6){
+                readSender(messageArray[4], messageArray[5], messageArray[3]);
+            }
         } catch (FileNotFoundException e) {
             System.out.println("Ju lutem shkruani nje path valid.");
         }
     }
     public static String readKeyName(String encryptedName) throws UnsupportedEncodingException {
         byte[] bytes = Base64.getDecoder().decode(encryptedName);
-        String value = new String(bytes, "UTF-8");
-        return value;
+        return new String(bytes, "UTF-8");
     }
 
     public static void readDESKey(String name, String message, String desMessage) throws Exception  {
@@ -53,7 +60,7 @@ public class Decrypt {
 
         byte[] dec = dcipher.doFinal(Base64.getDecoder().decode(message));
         SecretKey DESKey = new SecretKeySpec(dec,0, dec.length, "DES");
-        decryptMessage(DESKey, desMessage);
+        String decryptedMessage = decryptMessage(DESKey, desMessage);
 
     }
 
@@ -74,12 +81,42 @@ public class Decrypt {
         }
 
     }
-    public static void decryptMessage(SecretKey key, String message) throws Exception{
+    public static String decryptMessage(SecretKey key, String message) throws Exception{
         Cipher dcipher = Cipher.getInstance("DES");
         dcipher.init(Cipher.DECRYPT_MODE, key);
         byte[] dec = Base64.getDecoder().decode(message);
         byte[] utf8 = dcipher.doFinal(dec);
         System.out.println("Mesazhi: " + new String(utf8, "UTF8"));
+        return  new String(utf8, "UTF8");
+    }
+    public static void readSender(String encSender, String encSignature, String message) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, SignatureException {
+        byte[] bytes = Base64.getDecoder().decode(encSender);
+        String sender = new String(bytes, "UTF-8");
+        System.out.println("Derguesi: " + sender);
+        validateSignature( sender, encSignature, message);
+    }
+    public static void validateSignature(String name,String encSignature, String messsage) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+        Signature sig = Signature.getInstance("SHA1WithRSA");
+            try {
+                PublicKey = (PublicKey) Status.readPublicKey("keys/" + name + ".pub.key");
+            } catch (IOException e) {
+                System.out.println("Nenshkrimi: Mungon celesi publik" + name);
+                System.exit(-1);
+            } catch (InvalidKeySpecException e) {
+                System.out.println("Nenshkrimi: Mungon celesi publik" + name);
+                System.exit(-1);
+            }
+
+        sig.initVerify(PublicKey);
+            byte[] messageBytes = Base64.getDecoder().decode(messsage);
+            sig.update(messageBytes);
+            byte[] signatureBytes = Base64.getDecoder().decode(encSignature);
+            if(sig.verify(signatureBytes)){
+                System.out.println("Nenshkrimi: valid");
+            }
+            else {
+                System.out.println("Nenshkrimi: jovalid");
+            }
     }
 
 }
