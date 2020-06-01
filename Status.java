@@ -49,13 +49,18 @@ public class Status {
             System.out.println("User: " + jwt.getSubject());
             String path = dbConnect(jwt.getSubject());
             RSAPublicKey = readPublicKey(path);
-            Algorithm algorithm = Algorithm.RSA256(RSAPublicKey, null);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("nora")
-                    .build();
-            DecodedJWT jwts = verifier.verify(token);
-            System.out.println("Valid: po");
-            System.out.println("Skadimi: " + jwt.getExpiresAt());
+            if(RSAPublicKey.equals(null)){
+                System.out.println("Valid: jo");
+            }
+            else {
+                Algorithm algorithm = Algorithm.RSA256(RSAPublicKey, null);
+                JWTVerifier verifier = JWT.require(algorithm)
+                        .withIssuer("nora")
+                        .build();
+                DecodedJWT jwts = verifier.verify(token);
+                System.out.println("Valid: po");
+                System.out.println("Skadimi: " + jwt.getExpiresAt());
+            }
 
         } catch (JWTDecodeException e) {
             System.out.println("Tokeni ka pesuar ndryshime.");
