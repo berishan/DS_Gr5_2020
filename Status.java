@@ -4,7 +4,6 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +33,6 @@ public class Status {
                 PublicKey publicKey = keyFactory.generatePublic(keySpec);
                 return (RSAPublicKey) publicKey;
             } else {
-
                 return null;
             }
         } catch (FileNotFoundException e) {
@@ -49,19 +47,18 @@ public class Status {
             System.out.println("User: " + jwt.getSubject());
             String path = dbConnect(jwt.getSubject());
             RSAPublicKey = readPublicKey(path);
-            if(RSAPublicKey.equals(null)){
+            if(RSAPublicKey == null){
                 System.out.println("Valid: jo");
             }
             else {
                 Algorithm algorithm = Algorithm.RSA256(RSAPublicKey, null);
                 JWTVerifier verifier = JWT.require(algorithm)
-                        .withIssuer("nora")
+                        .withIssuer("DS_Gr5_2020")
                         .build();
                 DecodedJWT jwts = verifier.verify(token);
                 System.out.println("Valid: po");
-                System.out.println("Skadimi: " + jwt.getExpiresAt());
             }
-
+            System.out.println("Skadimi: " + jwt.getExpiresAt());
         } catch (JWTDecodeException e) {
             System.out.println("Tokeni ka pesuar ndryshime.");
         } catch (JWTVerificationException exception) {

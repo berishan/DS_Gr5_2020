@@ -25,10 +25,10 @@ public class ds {
                             char[] charConfrimPassword = console.readPassword();
                             String confirmPassword = new String(charConfrimPassword);
                             if (confirmPassword.equals(password)) {
-                                System.out.println("Bravo");
                                 CreateUser.GenerateKeys(args[1], password);
                             } else {
                                 System.out.println("Fjalekalimet nuk perputhen.");
+                                System.exit(-1);
                             }
                         } else {
                             System.out.println("Fjalekalimi duhet te permbaje se pak 6 karaktere dhe se paku nje simbol use numer.");
@@ -61,7 +61,7 @@ public class ds {
                     Status.token(args[1]);
                     System.exit(0);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Ju lutem shkruani vleren e token-it");
+                    System.out.println("Ju lutem shkruani vleren e tokenit");
                     System.exit(-1);
                 }
             } else if (args[0].equals("delete-user")) {
@@ -70,6 +70,7 @@ public class ds {
                     DeleteUser.deleteUser(args[1]);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin tuaj!");
+                    System.exit(-1);
                 }
                 System.exit(0);
             } else if (args[0].equals("export-key")) {
@@ -80,17 +81,16 @@ public class ds {
                     Export.exportKey(name, type, path);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani llojin e celesit, emrin e perdoruesit dhe nese doni fajllin ku do te ruhet");
+                    System.exit(-1);
                 }
                 System.exit(0);
 
             } else if (args[0].equals("import-key")) {
                 try {
                     Import.checkUser(args[1], args[2]);
-
-
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin e file-it dhe percaktoni shtegun");
-
+                    System.exit(-1);
                 }
                 System.exit(0);
 
@@ -99,6 +99,7 @@ public class ds {
                     Encrypt.saveOrShow(args[1], args[2], "no path", "nosender", "notoken");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkruani emrin e marresit dhe mesazhin");
+                    System.exit(-1);
                 }
                 System.exit(0);
             } else if (args[0].equals("read-message")) {
@@ -113,6 +114,7 @@ public class ds {
                     }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Ju lutem shkrauni mesazhin qe doni ta dekriptoni");
+                    System.exit(-1);
                 }
                 System.exit(0);
 

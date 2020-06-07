@@ -1,7 +1,6 @@
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,10 +38,10 @@ public class Login {
             if(correctPassword(dbSalt, dbPassword, password)){
                 generateToken(name,resultSet.getString("priv_key_path"));
             } else{
-                System.out.println("Gabim:Shfrytezuesi ose fjalekalimi i gabuar.");
+                System.out.println("Gabim: Shfrytezuesi ose fjalekalimi i gabuar.");
             }
         } catch (SQLException | InvalidKeySpecException | NoSuchAlgorithmException | IOException e) {
-            System.out.println("Ndodhi nje gabim2");
+            System.out.println("Ndodhi nje gabim");
         }
 
     }
@@ -58,20 +57,22 @@ public class Login {
     }
     public static void generateToken(String name,String privateKeyPath) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
         RSAPrivateKey privateKey = readPrivateKey(privateKeyPath);
+        if(privateKey == null)
+            System.exit(-1);
+        else{
         Algorithm algorithmRS = Algorithm.RSA256(null, privateKey);
         try {
             String token = JWT.create()
-                    .withIssuer("nora")
+                    .withIssuer("DS_Gr5_2020")
                     .withExpiresAt(new Date(TOKEN_EXPIRE))
                     .withSubject(name)
                     .sign(algorithmRS);
-            System.out.println(token);
+            System.out.println("Token: "+token);
     } catch (
-    JWTCreationException exception){
-            System.out.println("gabim72");
+    JWTCreationException exception) {
+            System.out.println("Tokeni nuk mund te gjenerohet.");
 
-    }
-
+        } }
     }
 
     public static RSAPrivateKey readPrivateKey(String path) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
@@ -87,7 +88,7 @@ public class Login {
             return (RSAPrivateKey)privateKey;
         }
         else {
-            System.out.println("Celes gabim");
+            System.out.println("Celesi nuk ekziston");
             return null;
         }
     }

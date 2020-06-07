@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.sql.Connection;
@@ -15,24 +16,24 @@ public class CreateUser {
 
     public static boolean checkUser(String name) {
 
-        String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
+        String publicFileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
 
-        if (new File(publicfileName).exists()) {
+        if (new File(publicFileName).exists()) {
             System.out.println("Celesi '" + name + "' ekziston paraprakisht.");
             return false;
         } else
             return true;
     }
-//        else {
-//
-//            GenerateKeys(name);
-//        }
 
+    public static void GenerateKeys(String name, String password) {
 
-    public static void GenerateKeys(String name, String password) throws Exception {
-
-        KeyPairGenerator keys = KeyPairGenerator.getInstance("RSA");
-        keys.initialize(2048);
+        KeyPairGenerator keys = null;
+        try {
+            keys = KeyPairGenerator.getInstance("RSA");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        keys.initialize(512);
 
         KeyPair keyPair = keys.generateKeyPair();
         PublicKey publicKey = keyPair.getPublic();
@@ -43,32 +44,46 @@ public class CreateUser {
 
         String privateFileContent = getBase64(privateKeyEncoded);
         String publicFileContent = getBase64(publicKeyEncoded);
-        saveUser(privateFileContent, publicFileContent, name, password);
+        try {
+            saveUser(privateFileContent, publicFileContent, name, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void saveUser(String privateFileContent, String publicFileContent, String name, String password) throws Exception {
+    public static void saveUser(String privateFileContent, String publicFileContent, String name, String password) {
 
         String privatefileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".key";
         String publicfileName = "keys/" + name.replaceAll("[^A-Za-z0-9_]", "") + ".pub.key";
-        updateDatabase(name, password,privatefileName, publicfileName);
-        FileWriter writeFile = new FileWriter(privatefileName);
-        writeFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
-        writeFile.write(privateFileContent);
-        writeFile.write("\n-----END RSA PRIVATE KEY-----\n");
-        writeFile.close();
-        System.out.println("Eshte krijuar celesi privat:     '" + privatefileName + "'.");
+        updateDatabase(name, password, privatefileName, publicfileName);
+        FileWriter writeFile = null;
+        try {
+            writeFile = new FileWriter(privatefileName);
+            writeFile.write("-----BEGIN RSA PRIVATE KEY-----\n");
+            writeFile.write(privateFileContent);
+            writeFile.write("\n-----END RSA PRIVATE KEY-----\n");
+            writeFile.close();
+            System.out.println("Eshte krijuar celesi privat:     '" + privatefileName + "'.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        FileWriter writeAnotherFile = new FileWriter(publicfileName);
-        writeAnotherFile.write("-----BEGIN RSA PUBLIC KEY-----\n");
-        writeAnotherFile.write(publicFileContent);
-        writeAnotherFile.write("\n-----END RSA PUBLIC KEY-----\n");
 
-        writeAnotherFile.close();
+        FileWriter writeAnotherFile = null;
+        try {
+            writeAnotherFile = new FileWriter(publicfileName);
+            writeAnotherFile.write("-----BEGIN RSA PUBLIC KEY-----\n");
+            writeAnotherFile.write(publicFileContent);
+            writeAnotherFile.write("\n-----END RSA PUBLIC KEY-----\n");
+            writeAnotherFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Eshte krijuar celesi publik:     '" + publicfileName + "'.");
     }
 
     static String getBase64(byte[] bytes) {
-
         return Base64.getEncoder().encodeToString(bytes);
     }
 
@@ -87,14 +102,14 @@ public class CreateUser {
             String hashedPassword = hashPassword(salt,password);
             if(!hashedPassword.equals("gabim")) {
                 String query = "INSERT INTO users(name, salt, hashed_password, priv_key_path, pub_key_path)" +
-                        " VALUES ('"+name+"', '"+dbSalt + "', '" +hashedPassword +"', '" +
-                        privateKeyPath+"', '"+publicKeyPath+"')";
+                        "VALUES('%s', '%s', '%s','%s', '%s')";
+                query = String.format(query, name, dbSalt, hashedPassword, privateKeyPath, publicKeyPath);
                 statement.execute(query);
                 statement.close();
                 con.close();
             }
         } catch (SQLException e) {
-            System.out.println("Ndodhi nje gabim");
+            System.out.println("Nuk mund te lidhemi me databaze.");
             System.exit(-1);
         }
     }

@@ -31,13 +31,9 @@ public class Encrypt {
     }
 
 
-    public static String base64Encode(String value) {
-        try {
+    public static String base64Encode(String value) throws UnsupportedEncodingException {
             return Base64.getEncoder().encodeToString(value.getBytes(UTF_8.toString()));
-        } catch (UnsupportedEncodingException ex) {
-            throw new RuntimeException(ex);
         }
-    }
 
     private static String DES(String message, String name, String sender, String token) throws Exception {
         SecretKey key = KeyGenerator.getInstance("DES").generateKey();
@@ -134,7 +130,7 @@ public class Encrypt {
         }
         Algorithm algorithm = Algorithm.RSA256(publicKey, null);
         JWTVerifier verifier = JWT.require(algorithm)
-                .withIssuer("nora")
+                .withIssuer("DS_Gr5_2020")
                 .build();
         try {
         DecodedJWT jwt = verifier.verify(token);
